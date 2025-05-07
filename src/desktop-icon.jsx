@@ -1,16 +1,20 @@
-export default function DesktopIcon({ id, image, type, text, onClick }) {
+export default function DesktopIcon({ id, icon, type, label, link, onClick }) {
   return (
     <>
       <div
         className="desktop-icon"
         onClick={() => {
-          onClick(id, image, type, text);
+          if (type === "link" && link) {
+            open(link);
+          } else {
+            onClick(id, icon, type, label);
+          }
         }}
       >
-        <div className="image">
-          <img src={image} />
+        <div className="icon">
+          <img src={icon} />
         </div>
-        <div className="text">{text}</div>
+        <div className="label">{label}</div>
       </div>
     </>
   );
