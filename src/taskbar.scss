@@ -1,0 +1,22 @@
+.taskbar {
+  height: 5%;
+  background-color: aqua;
+  display: flex;
+}
+
+.osButton {
+  flex-grow: 1;
+  border: 1px solid black;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.tabs {
+  flex-grow: 15;
+  border: 1px solid black;
+}
+
+.settings {
+  flex-grow: 2;
+  border: 1px solid black;
+}
