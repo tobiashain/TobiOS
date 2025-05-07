@@ -3,9 +3,37 @@
   height: 500px;
   background-color: white;
   position: absolute;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .window-header {
-  height: 100px;
+  position: relative;
+  height: 40px;
   background-color: aquamarine;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  box-sizing: border-box;
+
+  .window-header-image {
+    height: 100%;
+  }
+
+  img {
+    height: 100%;
+  }
+
+  .window-header-title {
+    flex-grow: 10;
+    margin-left: 10px;
+  }
+
+  .window-header-buttons {
+    flex-grow: 5;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
 }

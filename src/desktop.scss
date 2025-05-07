@@ -7,7 +7,7 @@
     rgba(87, 199, 133, 1) 50%,
     rgba(83, 152, 237, 1) 100%
   );
-
+  user-select: none;
   display: grid;
   grid-template-columns: repeat(16, 100px);
   grid-template-rows: repeat(7, 100px);
@@ -20,12 +20,11 @@
 .desktop-icon {
   width: 100px;
   height: 100px;
-  border: 1px dotted black;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .desktop-icon:hover {

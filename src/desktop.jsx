@@ -7,8 +7,11 @@ export default function Desktop() {
   const icons = [];
   const [windows, setWindows] = useState([]);
 
-  const openWindow = (id) => {
-    setWindows((prevWindows) => [...prevWindows, id]);
+  const openWindow = (id, image, type, text) => {
+    setWindows((prevWindows) => [
+      ...prevWindows,
+      { id: Date.now(), windowId: id, text, type, image },
+    ]);
   };
   for (let i = 0; i < 112; i++) {
     icons.push(
@@ -17,7 +20,7 @@ export default function Desktop() {
         key={i}
         image="https://picsum.photos/60/60"
         type="file"
-        text="My Document"
+        text="Work in Progress"
         onClick={openWindow}
       />
     );
@@ -27,7 +30,13 @@ export default function Desktop() {
       <div className="desktop">
         {icons}
         {windows.map((window) => (
-          <Window key={window.id} id={window.id} />
+          <Window
+            key={window.id}
+            id={window.windowId}
+            text={window.text}
+            image={window.image}
+            type={window.type}
+          />
         ))}
       </div>
     </>

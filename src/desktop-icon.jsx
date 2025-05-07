@@ -4,7 +4,7 @@ export default function DesktopIcon({ id, image, type, text, onClick }) {
       <div
         className="desktop-icon"
         onClick={() => {
-          onClick(id);
+          onClick(id, image, type, text);
         }}
       >
         <div className="image">
