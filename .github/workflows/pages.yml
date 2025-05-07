@@ -1,9 +1,9 @@
-name: Deploy npm static site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
-
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -19,26 +19,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18" # or your project's Node version
+          node-version: "18"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build project
-        run: |
-          npm run build
-          cp dist/index.html dist/404.html
+        run: npm run build
+
+      - name: Copy index.html to 404.html
+        run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist # or your actual build output folder
+          path: dist
 
   deploy:
     environment:
