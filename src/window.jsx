@@ -5,12 +5,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons/faRectangleXmark";
 import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
 import { faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
+import DesktopIcon from "./desktop-icon";
+import { useWindowManager } from "./WindowManagerContext";
 
-export default function Window({ windowId, label, type, icon, closeWindow }) {
+export default function Window({
+  windowId,
+  label,
+  type,
+  icon,
+  closeWindow,
+  children,
+}) {
   const position = useRef({ x: 0, y: 0 });
   const windowRef = useRef(null);
   const [startPositon, setStartPositon] = useState({ top: 0, left: 0 });
   const startPositionRef = useRef({ top: 0, left: 0 });
+  const { openWindow } = useWindowManager();
 
   useEffect(() => {
     startPositionRef.current = startPositon;
@@ -82,12 +92,38 @@ export default function Window({ windowId, label, type, icon, closeWindow }) {
         </div>
         {type === "folder" ? (
           <>
-            <div className="window-action-buttons"></div>
+            <div className="window-action-buttons">
+              <div className="">File</div>
+              <div className="">Edit</div>
+              <div className="">View</div>
+              <div className="">Go</div>
+              <div className="">Favourites</div>
+              <div className="">Help</div>
+            </div>
           </>
         ) : (
           <></>
         )}
-        <div className="window-content"></div>
+        <div className="window-content">
+          {type === "folder" ? (
+            <>
+              {children.map((child) => (
+                <DesktopIcon
+                  key={icon.id}
+                  id={child.id}
+                  icon={child.icon}
+                  label={child.label}
+                  type={child.type}
+                  link={child.link}
+                  onClick={openWindow}
+                  children={child.children}
+                />
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   );

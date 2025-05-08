@@ -1,4 +1,12 @@
-export default function DesktopIcon({ id, icon, type, label, link, onClick }) {
+export default function DesktopIcon({
+  id,
+  icon,
+  type,
+  label,
+  link,
+  onClick,
+  children,
+}) {
   return (
     <>
       <div
@@ -7,7 +15,7 @@ export default function DesktopIcon({ id, icon, type, label, link, onClick }) {
           if (type === "link" && link) {
             open(link);
           } else {
-            onClick(id, icon, type, label);
+            onClick(id, icon, type, label, children);
           }
         }}
       >

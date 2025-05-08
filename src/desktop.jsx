@@ -3,24 +3,10 @@ import DesktopIcon from "./desktop-icon";
 import Window from "./window";
 import { useState } from "react";
 import { desktopIcons } from "./desktopIcons";
+import { useWindowManager } from "./WindowManagerContext";
 
 export default function Desktop() {
-  const icons = [];
-  const [windows, setWindows] = useState([]);
-
-  const openWindow = (id, icon, type, label) => {
-    if (!windows.some((item) => item.windowId === id)) {
-      setWindows((prevWindows) => [
-        ...prevWindows,
-        { id: Date.now(), windowId: id, label, type, icon },
-      ]);
-    }
-  };
-  const closeWindow = (windowId) => {
-    setWindows((prevWindows) =>
-      prevWindows.filter((window) => window.windowId !== windowId)
-    );
-  };
+  const { openWindow, closeWindow, windows } = useWindowManager();
   return (
     <>
       <div className="desktop">
@@ -33,6 +19,7 @@ export default function Desktop() {
             type={icon.type}
             onClick={openWindow}
             link={icon.link}
+            children={icon.children}
           />
         ))}
         {windows.map((window) => (
@@ -43,6 +30,7 @@ export default function Desktop() {
             icon={window.icon}
             type={window.type}
             closeWindow={closeWindow}
+            children={window.children}
           />
         ))}
       </div>
