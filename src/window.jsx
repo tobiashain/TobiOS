@@ -1,5 +1,6 @@
 import "./window.scss";
 import interact from "interactjs";
+import React from "react";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons/faRectangleXmark";
@@ -8,14 +9,8 @@ import { faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
 import DesktopIcon from "./desktop-icon";
 import { useWindowManager } from "./WindowManagerContext";
 
-export default function Window({
-  windowId,
-  label,
-  type,
-  icon,
-  closeWindow,
-  children,
-}) {
+const Window = React.forwardRef(function Window(props, ref) {
+  const { windowId, label, icon, type, closeWindow, children } = props;
   const position = useRef({ x: 0, y: 0 });
   const windowRef = useRef(null);
   const [startPositon, setStartPositon] = useState({ top: 0, left: 0 });
@@ -66,6 +61,7 @@ export default function Window({
     <>
       <div
         className="window"
+        ref={ref}
         style={{ top: startPositon.top, left: startPositon.left }}
       >
         <div className={`window-header window-${windowId}`} ref={windowRef}>
@@ -109,7 +105,7 @@ export default function Window({
             <>
               {children.map((child) => (
                 <DesktopIcon
-                  key={icon.id}
+                  key={child.id}
                   id={child.id}
                   icon={child.icon}
                   label={child.label}
@@ -127,4 +123,6 @@ export default function Window({
       </div>
     </>
   );
-}
+});
+
+export default Window;

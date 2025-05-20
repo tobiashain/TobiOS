@@ -1,7 +1,12 @@
-export default function TaskbarItem({ windowId, label, icon }) {
+export default function TaskbarItem({ windowId, label, icon, onClick }) {
   return (
     <>
-      <div className="taskbar-item">
+      <div
+        className="taskbar-item"
+        onClick={() => {
+          onClick(windowId);
+        }}
+      >
         <div className="taskbar-item-icon">
           <img src={icon} />
         </div>

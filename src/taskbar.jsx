@@ -5,7 +5,13 @@ import { useWindowManager } from "./WindowManagerContext";
 import TaskbarItem from "./taskbar-item";
 
 export default function Taskbar() {
-  const { windows } = useWindowManager();
+  const { windows, windowRefs } = useWindowManager();
+
+  function onTaskbarItemClick(windowId) {
+    const el = windowRefs.current[windowId];
+    el.style.visibility =
+      el.style.visibility === "hidden" ? "visible" : "hidden";
+  }
   return (
     <>
       <div className="taskbar">
@@ -19,6 +25,7 @@ export default function Taskbar() {
               windowId={window.windowId}
               label={window.label}
               icon={window.icon}
+              onClick={onTaskbarItemClick}
             />
           ))}
         </div>
