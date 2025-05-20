@@ -1,6 +1,9 @@
-# WORK IN PROCESS
-
 # My Personal Website — Styled as an Operating System Interface
+
+> ⚠️ **Work in Progress**:  
+> This project is actively under development. The codebase contains extensive inline comments used for learning, reflection, and future reference as part of the ongoing effort to master advanced React and frontend practices.
+
+---
 
 ## Key Objectives
 
