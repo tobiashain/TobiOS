@@ -13,8 +13,9 @@ const WindowManagerContext = createContext(null);
 export function WindowManagerProvider({ children }) {
   const [windows, setWindows] = useState([]);
   const windowRefs = useRef({});
+  const [highestZindex, setHighestZindex] = useState(1);
 
-  const openWindow = (id, icon, type, label, children) => {
+  const openWindow = (id, icon, type, label, children, link) => {
     // prev is the initial value (windows or [])
     // .some is a foreach and checks if any item returns true in the callback function (returns true/false)
     // in this case it checks if any item already has the incoming id so there arent the same window opened twice
@@ -22,7 +23,7 @@ export function WindowManagerProvider({ children }) {
       if (!prev.some((item) => item.windowId === id)) {
         return [
           ...prev,
-          { id: Date.now(), windowId: id, label, type, icon, children },
+          { id: Date.now(), windowId: id, label, type, icon, children, link },
         ];
       }
       return prev;
@@ -39,7 +40,14 @@ export function WindowManagerProvider({ children }) {
 
   return (
     <WindowManagerContext.Provider
-      value={{ windows, openWindow, closeWindow, windowRefs }}
+      value={{
+        windows,
+        openWindow,
+        closeWindow,
+        windowRefs,
+        highestZindex,
+        setHighestZindex,
+      }}
     >
       {children}
     </WindowManagerContext.Provider>

@@ -1,4 +1,5 @@
 import "./window.scss";
+import { renderByType } from "./renderMap";
 import interact from "interactjs";
 import React from "react";
 import { useRef, useEffect, useLayoutEffect, useState } from "react";
@@ -9,22 +10,25 @@ import { faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
 import DesktopIcon from "./desktop-icon";
 import { useWindowManager } from "./WindowManagerContext";
 
-const Window = React.forwardRef(function Window(props, ref) {
-  const { windowId, label, icon, type, closeWindow, children } = props;
+const Window = React.forwardRef(function Window(
+  { windowId, label, icon, type, children, link },
+  ref
+) {
   const position = useRef({ x: 0, y: 0 });
-  const windowRef = useRef(null);
+  const windowDragRef = useRef(null);
   const [startPositon, setStartPositon] = useState({ top: 0, left: 0 });
   const startPositionRef = useRef({ top: 0, left: 0 });
-  const { openWindow } = useWindowManager();
+  const { closeWindow, windowRefs, highestZindex, setHighestZindex } =
+    useWindowManager();
 
   useEffect(() => {
     startPositionRef.current = startPositon;
   }, [startPositon]);
 
   useEffect(() => {
-    if (!windowRef.current) return;
+    if (!windowDragRef.current) return;
 
-    interact(windowRef.current).draggable({
+    interact(windowDragRef.current).draggable({
       listeners: {
         move(event) {
           const pos = position.current;
@@ -53,18 +57,24 @@ const Window = React.forwardRef(function Window(props, ref) {
     setStartPositon({ top: top, left: left });
   }, []);
 
-  function handleClose() {
-    closeWindow(windowId);
-  }
-
   return (
     <>
       <div
         className="window"
         ref={ref}
         style={{ top: startPositon.top, left: startPositon.left }}
+        onClick={() => {
+          const currentZIndex =
+            Number(windowRefs.current[windowId].style.zIndex) || 0;
+
+          if (currentZIndex !== highestZindex) {
+            const newZIndex = highestZindex + 1;
+            setHighestZindex(newZIndex);
+            windowRefs.current[windowId].style.zIndex = newZIndex;
+          }
+        }}
       >
-        <div className={`window-header window-${windowId}`} ref={windowRef}>
+        <div className={`window-header window-${windowId}`} ref={windowDragRef}>
           <div className="window-header-image">
             <img src={icon} />
           </div>
@@ -79,7 +89,7 @@ const Window = React.forwardRef(function Window(props, ref) {
             <div
               className="window-header-button"
               onClick={() => {
-                handleClose();
+                closeWindow(windowId);
               }}
             >
               <FontAwesomeIcon icon={faRectangleXmark} size="lg" />
@@ -101,28 +111,10 @@ const Window = React.forwardRef(function Window(props, ref) {
           <></>
         )}
         <div className="window-content">
-          {type === "folder" ? (
-            <>
-              {children.map((child) => (
-                <DesktopIcon
-                  key={child.id}
-                  id={child.id}
-                  icon={child.icon}
-                  label={child.label}
-                  type={child.type}
-                  link={child.link}
-                  onClick={openWindow}
-                  children={child.children}
-                />
-              ))}
-            </>
-          ) : (
-            <></>
-          )}
+          {renderByType[type]?.({ children, link })}
         </div>
       </div>
     </>
   );
 });
-
 export default Window;

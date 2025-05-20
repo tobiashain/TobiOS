@@ -5,7 +5,7 @@ import { desktopIcons } from "./desktopIcons";
 import { useWindowManager } from "./WindowManagerContext";
 
 export default function Desktop() {
-  const { openWindow, closeWindow, windows, windowRefs } = useWindowManager();
+  const { windows, windowRefs } = useWindowManager();
   return (
     <>
       <div className="desktop">
@@ -20,7 +20,6 @@ export default function Desktop() {
             icon={icon.icon}
             label={icon.label}
             type={icon.type}
-            onClick={openWindow}
             link={icon.link}
             children={icon.children}
           />
@@ -28,6 +27,7 @@ export default function Desktop() {
         {windows.map((window) => (
           <Window
             key={window.id}
+            // Ref callback invoked by React on mount/unmount to keep windowRefs.current synced with the actual DOM elements
             ref={(el) => {
               if (el) windowRefs.current[window.windowId] = el;
               else delete windowRefs.current[window.windowId];
@@ -36,8 +36,8 @@ export default function Desktop() {
             label={window.label}
             icon={window.icon}
             type={window.type}
-            closeWindow={closeWindow}
             children={window.children}
+            link={window.link}
           />
         ))}
       </div>

@@ -39,4 +39,11 @@ export const desktopIcons = [
     label: "README.txt",
     icon: "https://picsum.photos/60/60",
   },
+  {
+    id: "lain",
+    type: "video",
+    label: "Let's All Love Lain",
+    icon: "https://picsum.photos/60/60",
+    link: "T0xCK6J1ics",
+  },
 ];

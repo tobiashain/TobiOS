@@ -1,21 +1,16 @@
-export default function DesktopIcon({
-  id,
-  icon,
-  type,
-  label,
-  link,
-  onClick,
-  children,
-}) {
+import { useWindowManager } from "./WindowManagerContext";
+
+export default function DesktopIcon({ id, icon, type, label, link, children }) {
+  const { openWindow } = useWindowManager();
   return (
     <>
       <div
         className="desktop-icon"
         onClick={() => {
           if (type === "link" && link) {
-            open(link);
+            open(link, "_blank");
           } else {
-            onClick(id, icon, type, label, children);
+            openWindow(id, icon, type, label, children, link);
           }
         }}
       >

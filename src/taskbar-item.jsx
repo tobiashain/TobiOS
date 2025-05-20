@@ -1,10 +1,15 @@
-export default function TaskbarItem({ windowId, label, icon, onClick }) {
+import { useWindowManager } from "./WindowManagerContext";
+
+export default function TaskbarItem({ windowId, label, icon }) {
+  const { windowRefs } = useWindowManager();
   return (
     <>
       <div
         className="taskbar-item"
         onClick={() => {
-          onClick(windowId);
+          const el = windowRefs.current[windowId];
+          el.style.visibility =
+            el.style.visibility === "hidden" ? "visible" : "hidden";
         }}
       >
         <div className="taskbar-item-icon">
