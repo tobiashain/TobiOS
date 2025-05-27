@@ -18,7 +18,6 @@ export const renderByType = {
           allow="autoplay; encrypted-media"
           allowFullScreen
           style={{
-            //width: "100%",
             aspectRatio: "16 / 9",
           }}
         />
