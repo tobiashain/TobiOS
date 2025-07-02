@@ -1,4 +1,4 @@
-# My Personal Website — Styled as an Operating System Interface
+# My Personal Website - Styled as an Operating System Interface
 
 > ⚠️ **Work in Progress**:  
 > This project is actively under development. The codebase contains extensive inline comments used for learning, reflection, and future reference as part of the ongoing effort to master advanced React and frontend practices.
@@ -7,7 +7,7 @@
 
 ## Key Objectives
 
-A comprehensive platform designed to showcase technical expertise, act as a professional portfolio, demonstrate advanced UI/UX capabilities, and reflect personal interests — all within a custom-built React application that mimics the look and feel of a desktop operating system.
+A comprehensive platform designed to showcase technical expertise, act as a professional portfolio, demonstrate advanced UI/UX capabilities, and reflect personal interests, all within a custom-built React application that mimics the look and feel of a desktop operating system.
 
 ---
 
@@ -17,10 +17,10 @@ The core purpose of this project is to deepen and refine full-stack web developm
 
 **Technologies & Tools:**
 
-- **React** – Component-based architecture and advanced state management
-- **Vite** – Fast development environment and optimized build process
-- **Interact.js** – Draggable/resizable desktop-style UI components
-- **Cloudflare + Workers** – Edge deployment and serverless backend logic
+- **React** - Component-based architecture and advanced state management
+- **Vite** - Fast development environment and optimized build process
+- **Interact.js** - Draggable/resizable desktop-style UI components
+- **Cloudflare + Workers** - Edge deployment and serverless backend logic
 
 ---
 
