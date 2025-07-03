@@ -1,7 +1,7 @@
 import "./taskbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindows } from "@fortawesome/free-brands-svg-icons";
-import { useWindowManager } from "./WindowManagerContext";
+import { useWindowManager } from "../shared/WindowManagerContext";
 import TaskbarItem from "./taskbar-item";
 
 export default function Taskbar() {

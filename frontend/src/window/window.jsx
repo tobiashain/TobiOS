@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons/faRectangleXmark";
 import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
 import { faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
-import DesktopIcon from "./desktop-icon";
-import { useWindowManager } from "./WindowManagerContext";
+import DesktopIcon from "../desktop/desktop-icon";
+import { useWindowManager } from "../shared/WindowManagerContext";
 
 const Window = React.forwardRef(function Window(
   { windowId, label, icon, type, children, link },

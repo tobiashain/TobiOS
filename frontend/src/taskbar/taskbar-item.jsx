@@ -1,4 +1,4 @@
-import { useWindowManager } from "./WindowManagerContext";
+import { useWindowManager } from "../shared/WindowManagerContext";
 
 export default function TaskbarItem({ windowId, label, icon }) {
   const { windowRefs } = useWindowManager();

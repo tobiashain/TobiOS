@@ -1,8 +1,8 @@
 import "./desktop.scss";
 import DesktopIcon from "./desktop-icon";
-import Window from "./window";
+import Window from "../window/window";
 import { desktopIcons } from "./desktopIcons";
-import { useWindowManager } from "./WindowManagerContext";
+import { useWindowManager } from "../shared/WindowManagerContext";
 
 export default function Desktop() {
   const { windows, windowRefs } = useWindowManager();

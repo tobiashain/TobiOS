@@ -1,4 +1,4 @@
-import DesktopIcon from "./desktop-icon";
+import DesktopIcon from "../desktop/desktop-icon";
 
 export const renderByType = {
   folder: (props) => (

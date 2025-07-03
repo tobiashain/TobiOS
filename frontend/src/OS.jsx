@@ -1,8 +1,8 @@
-import Desktop from "./desktop";
-import Taskbar from "./taskbar";
-import Boot from "./boot";
+import Desktop from "./desktop/desktop";
+import Taskbar from "./taskbar/taskbar";
+import Boot from "./boot/boot";
 import { useState } from "react";
-import { WindowManagerProvider } from "./WindowManagerContext";
+import { WindowManagerProvider } from "./shared/WindowManagerContext";
 
 export default function OS() {
   const [bootUp, setBootUp] = useState(false);

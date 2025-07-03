@@ -1,4 +1,4 @@
-import { useWindowManager } from "./WindowManagerContext";
+import { useWindowManager } from "../shared/WindowManagerContext";
 
 export default function DesktopIcon({ id, icon, type, label, link, children }) {
   const { openWindow } = useWindowManager();
