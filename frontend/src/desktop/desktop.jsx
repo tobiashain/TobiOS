@@ -22,11 +22,12 @@ export default function Desktop() {
             type={icon.type}
             link={icon.link}
             children={icon.children}
+            size={icon.size}
           />
         ))}
         {windows.map((window) => (
           <Window
-            key={window.id}
+            key={window.windowId}
             // Ref callback invoked by React on mount/unmount to keep windowRefs.current synced with the actual DOM elements
             ref={(el) => {
               if (el) windowRefs.current[window.windowId] = el;
@@ -38,6 +39,7 @@ export default function Desktop() {
             type={window.type}
             children={window.children}
             link={window.link}
+            size={window.size}
           />
         ))}
       </div>

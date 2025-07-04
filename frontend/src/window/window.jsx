@@ -7,16 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons/faRectangleXmark";
 import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
 import { faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
-import DesktopIcon from "../desktop/desktop-icon";
 import { useWindowManager } from "../shared/WindowManagerContext";
 
 const Window = React.forwardRef(function Window(
-  { windowId, label, icon, type, children, link },
+  { windowId, label, icon, type, children, link, size },
   ref
 ) {
   const position = useRef({ x: 0, y: 0 });
-  const windowDragRef = useRef(null);
   const [startPositon, setStartPositon] = useState({ top: 0, left: 0 });
+  const [windowSize, setWindowSize] = useState({ width: 500, height: 500 });
   const startPositionRef = useRef({ top: 0, left: 0 });
   const { closeWindow, windowRefs, highestZindex, setHighestZindex } =
     useWindowManager();
@@ -25,6 +24,7 @@ const Window = React.forwardRef(function Window(
     startPositionRef.current = startPositon;
   }, [startPositon]);
 
+  //useEffect runs after the browser painted the DOM
   useEffect(() => {
     if (!windowRefs.current[windowId]) return;
 
@@ -47,6 +47,10 @@ const Window = React.forwardRef(function Window(
           });
 
           Object.assign(event.target.dataset, { x, y });
+          setWindowSize({
+            width: event.rect.width,
+            height: event.rect.height,
+          });
         },
       },
     });
@@ -61,9 +65,13 @@ const Window = React.forwardRef(function Window(
           pos.y += event.dy;
 
           const { top, left } = startPositionRef.current;
-          const maxX = window.innerWidth - 540 - left;
+          const maxX = window.innerWidth - windowSize.width - 40 - left;
           const maxY =
-            window.innerHeight - 540 - window.innerHeight * 0.05 - top;
+            window.innerHeight -
+            windowSize.height -
+            40 -
+            window.innerHeight * 0.05 -
+            top;
           pos.x = Math.max(-left, Math.min(pos.x, maxX));
           pos.y = Math.max(-top, Math.min(pos.y, maxY));
 
@@ -71,12 +79,28 @@ const Window = React.forwardRef(function Window(
         },
       },
     });
-  }, []);
+  }, [startPositon, windowSize]); //rerender because of usestate is "async"
 
+  //useLayoutEffects runs immediately after the DOM mutations but before the browser paints
   useLayoutEffect(() => {
-    const left = Math.floor(Math.random() * (window.innerWidth - 540));
+    //setStates do not not update the value of the state variable in the current render, only in the next cycle.
+    let localWindowSize = [windowSize.width, windowSize.height];
+    if (size) {
+      localWindowSize = size.split("x");
+      setWindowSize({
+        width: Number(localWindowSize[0]),
+        height: Number(localWindowSize[1]),
+      });
+    }
+    const left = Math.floor(
+      Math.random() * (window.innerWidth - localWindowSize[0] - 40)
+    );
     const top = Math.floor(
-      Math.random() * (window.innerHeight - 540 - window.innerHeight * 0.05)
+      Math.random() *
+        (window.innerHeight -
+          localWindowSize[1] -
+          40 -
+          window.innerHeight * 0.05)
     );
     setStartPositon({ top: top, left: left });
   }, []);
@@ -86,7 +110,12 @@ const Window = React.forwardRef(function Window(
       <div
         className={`window window-${windowId}`}
         ref={ref}
-        style={{ top: startPositon.top, left: startPositon.left }}
+        style={{
+          top: startPositon.top,
+          left: startPositon.left,
+          width: windowSize.width,
+          height: windowSize.height,
+        }}
         onClick={() => {
           const currentZIndex =
             Number(windowRefs.current[windowId].style.zIndex) || 0;

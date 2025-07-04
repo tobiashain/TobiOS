@@ -1,7 +1,7 @@
 export const desktopIcons = [
   {
     id: "calculator",
-    type: "app",
+    type: "calculator",
     label: "Calculator",
     icon: "https://picsum.photos/60/60",
   },
@@ -45,5 +45,12 @@ export const desktopIcons = [
     label: "Let's All Love Lain",
     icon: "https://picsum.photos/60/60",
     link: "T0xCK6J1ics",
+  },
+  {
+    id: "music",
+    type: "music",
+    label: "Music",
+    icon: "https://picsum.photos/60/60",
+    size: "800x500",
   },
 ];

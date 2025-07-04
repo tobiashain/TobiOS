@@ -1,4 +1,6 @@
 import DesktopIcon from "../desktop/desktop-icon";
+import MusicApp from "../windowApps/musicApp";
+import CalculatorApp from "../windowApps/calculator";
 
 export const renderByType = {
   folder: (props) => (
@@ -24,4 +26,6 @@ export const renderByType = {
       </div>
     </>
   ),
+  music: () => <MusicApp />,
+  calculator: () => <CalculatorApp />,
 };

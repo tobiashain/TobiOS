@@ -15,7 +15,7 @@ export function WindowManagerProvider({ children }) {
   const windowRefs = useRef({});
   const [highestZindex, setHighestZindex] = useState(1);
 
-  const openWindow = (id, icon, type, label, children, link) => {
+  const openWindow = (id, icon, type, label, children, link, size) => {
     // prev is the initial value (windows or [])
     // .some is a foreach and checks if any item returns true in the callback function (returns true/false)
     // in this case it checks if any item already has the incoming id so there arent the same window opened twice
@@ -23,7 +23,16 @@ export function WindowManagerProvider({ children }) {
       if (!prev.some((item) => item.windowId === id)) {
         return [
           ...prev,
-          { id: Date.now(), windowId: id, label, type, icon, children, link },
+          {
+            id: Date.now(),
+            windowId: id,
+            label,
+            type,
+            icon,
+            children,
+            link,
+            size,
+          },
         ];
       }
       return prev;

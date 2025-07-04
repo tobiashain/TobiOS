@@ -1,6 +1,14 @@
 import { useWindowManager } from "../shared/WindowManagerContext";
 
-export default function DesktopIcon({ id, icon, type, label, link, children }) {
+export default function DesktopIcon({
+  id,
+  icon,
+  type,
+  label,
+  link,
+  children,
+  size,
+}) {
   const { openWindow } = useWindowManager();
   return (
     <>
@@ -10,7 +18,7 @@ export default function DesktopIcon({ id, icon, type, label, link, children }) {
           if (type === "link" && link) {
             open(link, "_blank");
           } else {
-            openWindow(id, icon, type, label, children, link);
+            openWindow(id, icon, type, label, children, link, size);
           }
         }}
       >
