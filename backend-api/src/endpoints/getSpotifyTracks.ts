@@ -5,7 +5,7 @@ export default async function getSpotifyTracks(
   env,
   ctx,
   ids
-): Promise<Response> {
+): Promise<Tracks> {
   try {
     const token = await getSpotifyToken(env);
     const idArray = ids.split(",");
@@ -33,9 +33,9 @@ export default async function getSpotifyTracks(
       artist: artistTracks,
     };
 
-    return Response.json({ tracks });
+    return tracks;
   } catch (error) {
     console.error("Error in getSpotifyTracks:", error);
-    return new Response("Failed to get Spotify Tracks", { status: 500 });
+    throw new Error("Failed to get Spotify Tracks");
   }
 }

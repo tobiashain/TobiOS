@@ -5,7 +5,7 @@ export default async function getSpotifyArtists(
   env,
   ctx,
   ids
-): Promise<Response> {
+): Promise<Artists> {
   try {
     const token = await getSpotifyToken(env);
     const res = await fetch(`https://api.spotify.com/v1/artists?ids=${ids}`, {
@@ -23,10 +23,9 @@ export default async function getSpotifyArtists(
         url: artist.external_urls.spotify,
       })),
     };
-    return Response.json(artists);
+    return artists;
   } catch (error) {
     console.error("Error in getSpotifyArtists:", error);
-
-    return new Response("Failed to get Spotify Artists", { status: 500 });
+    throw new Error("Failed to get Spotify Artists");
   }
 }

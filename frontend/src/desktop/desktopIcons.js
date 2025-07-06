@@ -1,5 +1,11 @@
 export const desktopIcons = [
   {
+    id: "wired",
+    type: "wired",
+    label: "The Wired",
+    icon: "https://picsum.photos/60/60",
+  },
+  {
     id: "calculator",
     type: "calculator",
     label: "Calculator",

@@ -34,3 +34,21 @@
 .desktop-icon:hover {
   background-color: rgba(42, 123, 155, 0.5);
 }
+
+.transition-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.transition-video.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
