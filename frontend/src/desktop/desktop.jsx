@@ -3,9 +3,15 @@ import DesktopIcon from "./desktop-icon";
 import Window from "../window/window";
 import { desktopIcons } from "./desktopIcons";
 import { useWindowManager } from "../shared/WindowManagerContext";
+import { useEffect } from "react";
+import preloadVideo from "../shared/preload";
 
 export default function Desktop() {
   const { windows, windowRefs } = useWindowManager();
+
+  useEffect(() => {
+    preloadVideo("lain.mp4");
+  }, []);
   return (
     <>
       <div className="desktop">
