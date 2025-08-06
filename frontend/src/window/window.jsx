@@ -30,6 +30,12 @@ const Window = React.forwardRef(function Window(
 
     interact(windowRefs.current[windowId]).resizable({
       edges: { top: true, left: true, bottom: true, right: true },
+      margin: 10,
+      modifiers: [
+        interact.modifiers.restrictSize({
+          min: { width: 300, height: 300 },
+        }),
+      ],
       listeners: {
         move: function (event) {
           let { x, y } = position.current;
@@ -127,6 +133,8 @@ const Window = React.forwardRef(function Window(
           }
         }}
       >
+        {/* needed so that you can resize on the right side of scrollbar */}
+        <div className="resize-handle resize-handle-right"></div>
         <div className="window-header">
           <div className="window-header-image">
             <img src={icon} />
