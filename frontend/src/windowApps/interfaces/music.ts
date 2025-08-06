@@ -19,6 +19,6 @@ interface Tracks {
 }
 
 export default interface MusicData {
-  artists: Artists[];
-  tracks: Tracks[];
+  artists: Artists;
+  tracks: Tracks;
 }

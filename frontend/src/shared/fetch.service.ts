@@ -8,7 +8,7 @@ export default class FetchService {
     return FetchService.instance;
   }
 
-  private constructor() {}
+  public constructor() {}
 
   public async get<T = any>(
     url: string,

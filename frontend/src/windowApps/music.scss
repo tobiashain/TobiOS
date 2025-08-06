@@ -1,0 +1,22 @@
+.music {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.flex {
+  display: flex;
+  gap: 10px;
+}
+
+.image {
+  width: 100px;
+  aspect-ratio: 1/1;
+}
+
+.artist {
+  cursor: pointer;
+}
+
+.music-section {
+  margin-bottom: 50px;
+}

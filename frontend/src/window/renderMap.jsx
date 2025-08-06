@@ -1,5 +1,5 @@
 import DesktopIcon from "../desktop/desktop-icon";
-import MusicApp from "../windowApps/music";
+import MusicApp from "../windowApps/music.tsx";
 import CalculatorApp from "../windowApps/calculator";
 
 export const renderByType = {
