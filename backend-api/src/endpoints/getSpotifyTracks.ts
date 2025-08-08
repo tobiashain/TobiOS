@@ -30,7 +30,7 @@ export default async function getSpotifyTracks(
     const artistTracks = await Promise.all(idArray.map(fetchTracksForArtist));
 
     const tracks: Tracks = {
-      artist: artistTracks,
+      artist: artistTracks.map((trackArray) => ({ track: trackArray })),
     };
 
     return tracks;
