@@ -28,7 +28,7 @@ export default function DesktopIcon({
         }}
       >
         <div className="icon">
-          <img src={icon} />
+          <img src={icon} alt={label} />
         </div>
         <div className="label">{label}</div>
       </div>

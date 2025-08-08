@@ -15,8 +15,31 @@
 
 .artist {
   cursor: pointer;
+  width: 40%;
 }
 
 .music-section {
   margin-bottom: 50px;
+}
+
+.tracks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.track {
+  width: 100px;
+  cursor: pointer;
+}
+
+.trackName {
+  display: -webkit-box;
+  line-height: 1.2em;
+  height: calc(1.2em * 3);
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

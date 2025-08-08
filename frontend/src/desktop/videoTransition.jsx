@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export default function VideoTransition({ onFinish }) {
   const videoRef = useRef(null);
   const [visible, setVisible] = useState(false);
-  const visibleRef = useRef(false); // <-- tracks the latest value
+  const visibleRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -15,14 +15,14 @@ export default function VideoTransition({ onFinish }) {
 
     const handleEnd = () => {
       visibleRef.current = false;
-      setVisible(false); // trigger fade-out
+      setVisible(false);
     };
 
     const handleTransitionEnd = (e) => {
       if (e.propertyName !== "opacity") return;
 
       if (!visibleRef.current) {
-        onFinish?.(); // fade-out complete
+        onFinish?.();
       }
     };
 

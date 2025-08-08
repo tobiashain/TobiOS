@@ -22,31 +22,57 @@ export default function MusicApp() {
   return (
     <div className="music">
       {data
-        ? data.artists.artist.map((data) => {
+        ? data.artists.artist.map((artist, index) => {
+            const artistTracks = data.tracks.artist[index]?.track ?? [];
             return (
               <>
                 <div className="music-section">
                   <div
                     className="artist"
                     onClick={() => {
-                      open(data.url, "_blank");
+                      open(artist.url, "_blank");
                     }}
-                    key={data.name}
+                    key={artist.name}
                   >
                     <div className="flex">
-                      <img className="image" src={data.image} />
+                      <div className="artistImage">
+                        <img
+                          className="image"
+                          src={artist.image}
+                          alt={artist.name}
+                        />
+                      </div>
+
                       <div className="information">
-                        <div className="name">{data.name}</div>
+                        <div className="name">{artist.name}</div>
                         <div className="genre">
-                          {data.genres[0] !== undefined
-                            ? `Genre: ${data.genres}`
+                          {artist.genres[0] !== undefined
+                            ? `Genre: ${artist.genres}`
                             : ""}
                         </div>
                         <div className="followers">
-                          {data.followers.toLocaleString()} Followers
+                          {artist.followers.toLocaleString()} Followers
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div className="tracks">
+                    {artistTracks.map((track) => (
+                      <div
+                        className="track"
+                        key={track.name}
+                        onClick={() => open(track.url, "_blank")}
+                      >
+                        <div className="trackImage">
+                          <img
+                            className="image"
+                            src={track.image}
+                            alt={track.image}
+                          ></img>
+                        </div>
+                        <div className="trackName">{track.name}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </>

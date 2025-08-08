@@ -12,7 +12,7 @@
   top: 40px;
   right: 0;
   width: 8px;
-  height: 100%;
+  height: calc(100% - 38.5px);
   z-index: 1000; /* above scrollbar */
 }
 
@@ -64,9 +64,8 @@
 
 .window-content {
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100% - 38.5px);
   overflow-y: auto;
-  scrollbar-gutter: stable;
 }
 
 .video {
@@ -75,4 +74,5 @@
   background-color: black;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
