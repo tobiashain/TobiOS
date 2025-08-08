@@ -10,7 +10,7 @@ export default function Desktop() {
   const { windows, windowRefs } = useWindowManager();
 
   useEffect(() => {
-    preloadVideo("lain.mp4");
+    preloadVideo({ src: "lain.mp4" });
   }, []);
   return (
     <>
