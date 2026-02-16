@@ -4,7 +4,7 @@ import CalculatorApp from "../windowApps/calculator.jsx";
 import { JSX } from "react/jsx-runtime";
 import { DesktopIcons } from "../desktop/desktopIcons.ts";
 
-export type WindowType = "folder" | "video" | "music" | "calculator";
+export type WindowType = "folder" | "video" | "iframe" | "music" | "calculator";
 
 interface RenderProps {
   children?: any;
@@ -36,6 +36,17 @@ export const renderByType: Record<
           }}
         />
       </div>
+    </>
+  ),
+  iframe: (props) => (
+    <>
+      <iframe
+        src={props.link}
+        style={{
+          height: "100%",
+          width: "100%",
+        }}
+      />
     </>
   ),
   music: () => <MusicApp />,

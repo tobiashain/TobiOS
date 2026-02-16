@@ -91,11 +91,21 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
           pos.y += event.dy;
 
           const { top, left } = startPositionRef.current;
-          const maxX = window.innerWidth - windowSize.width - 40 - left;
+          /*const maxX = window.innerWidth - windowSize.width - 40 - left;
           const maxY =
             window.innerHeight -
             windowSize.height -
             40 -
+            window.innerHeight * 0.05 -
+            top;
+          pos.x = Math.max(-left, Math.min(pos.x, maxX));
+          pos.y = Math.max(-top, Math.min(pos.y, maxY));
+          */
+
+          const maxX = window.innerWidth - windowSize.width - left;
+          const maxY =
+            window.innerHeight -
+            windowSize.height -
             window.innerHeight * 0.05 -
             top;
           pos.x = Math.max(-left, Math.min(pos.x, maxX));
@@ -118,6 +128,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         height: Number(tempSize[1]),
       });
     }
+    /*
     const left = Math.floor(
       Math.random() * (window.innerWidth - localWindowSize[0] - 40),
     );
@@ -127,6 +138,14 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
           localWindowSize[1] -
           40 -
           window.innerHeight * 0.05),
+    );
+    */
+    const left = Math.floor(
+      Math.random() * (window.innerWidth - localWindowSize[0]),
+    );
+    const top = Math.floor(
+      Math.random() *
+        (window.innerHeight - localWindowSize[1] - window.innerHeight * 0.05),
     );
     setStartPositon({ top: top, left: left });
   }, []);

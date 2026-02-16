@@ -59,6 +59,14 @@ export const desktopIcons: DesktopIcons[] = [
     icon: "https://picsum.photos/60/60",
     size: "800x500",
   },
+  {
+    id: "iframe",
+    type: "iframe",
+    label: "Iframe",
+    icon: "https://picsum.photos/60/60",
+    link: "https://tobiashain.github.io/TobiOS/",
+    size: "1200x700",
+  },
 ];
 
 export interface DesktopIcons {
