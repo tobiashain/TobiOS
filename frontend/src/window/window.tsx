@@ -36,6 +36,24 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   const { closeWindow, windowRefs, highestZindex, setHighestZindex } =
     useWindowManager();
 
+  const disableIframes = () => {
+    const node = windowRefs.current[windowId];
+    if (!node) return;
+
+    node.querySelectorAll("iframe").forEach((iframe) => {
+      (iframe as HTMLIFrameElement).style.pointerEvents = "none";
+    });
+  };
+
+  const enableIframes = () => {
+    const node = windowRefs.current[windowId];
+    if (!node) return;
+
+    node.querySelectorAll("iframe").forEach((iframe) => {
+      (iframe as HTMLIFrameElement).style.pointerEvents = "auto";
+    });
+  };
+
   useEffect(() => {
     startPositionRef.current = startPositon;
   }, [startPositon]);
@@ -59,6 +77,10 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         }),
       ],
       listeners: {
+        start() {
+          disableIframes();
+        },
+
         move: function (event) {
           let { x, y } = position.current;
 
@@ -80,10 +102,18 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
             height: event.rect.height,
           });
         },
+
+        end() {
+          enableIframes();
+        },
       },
     });
     interact(windowHeader).draggable({
       listeners: {
+        start() {
+          disableIframes();
+        },
+
         move(event) {
           const pos = position.current;
 
@@ -112,6 +142,10 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
           pos.y = Math.max(-top, Math.min(pos.y, maxY));
 
           event.target.parentNode.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+        },
+
+        end() {
+          enableIframes();
         },
       },
     });
