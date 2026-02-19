@@ -1,3 +1,5 @@
+$handle-size: 8px;
+
 .window {
   width: 500px;
   height: 500px;
@@ -6,15 +8,38 @@
   border-radius: 5px;
   border: 1px solid rgb(40, 40, 40);
   overflow: hidden;
+  box-sizing: border-box;
+}
+
+.resize-handle {
+  position: absolute;
+  z-index: 1000;
 }
 
 .resize-handle-right {
-  position: absolute;
   top: 40px;
   right: 0;
-  width: 8px;
+  width: $handle-size;
   height: calc(100% - 38.5px);
-  z-index: 1000; /* above scrollbar */
+}
+
+.resize-handle-left {
+  top: 40px;
+  left: 0;
+  width: $handle-size;
+  height: calc(100% - 38.5px);
+}
+
+.resize-handle-bottom {
+  bottom: 0;
+  width: 100%;
+  height: $handle-size;
+}
+
+.resize-handle-top {
+  top: 0;
+  width: 100%;
+  height: $handle-size;
 }
 
 .window-header {
@@ -66,7 +91,12 @@
 .window-content {
   width: 100%;
   height: calc(100% - 38.5px);
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.window-content:has(iframe) {
+  overflow: hidden;
 }
 
 .video {
@@ -76,4 +106,8 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+}
+
+iframe {
+  border: none;
 }

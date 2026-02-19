@@ -22,9 +22,8 @@ interface WindowManagerContextType {
   windows: WindowItem[];
   openWindow: (props: DesktopIcons) => void;
   closeWindow: (windowId: string) => void;
+  updateZIndex: (el: HTMLDivElement) => void;
   windowRefs: React.RefObject<Record<string, HTMLDivElement | null>>;
-  highestZindex: number;
-  setHighestZindex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // 1. CreateContext: Initializes the Context object used to hold shared data.
@@ -35,7 +34,7 @@ const WindowManagerContext = createContext<WindowManagerContextType | null>(
 // 2. Provider: Wraps components that need access to the Context, supplying the shared value.
 export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const [windows, setWindows] = useState<WindowItem[]>([]);
-  const windowRefs = useRef({});
+  const windowRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [highestZindex, setHighestZindex] = useState<number>(1);
 
   const openWindow = (props: DesktopIcons) => {
@@ -59,6 +58,9 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
             size,
           },
         ];
+      } else {
+        const el = windowRefs.current[id];
+        if (el) updateZIndex(el);
       }
       return prev;
     });
@@ -72,15 +74,24 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  const updateZIndex = (el: HTMLDivElement) => {
+    const currentZIndex = Number(el?.style.zIndex) || 0;
+
+    if (currentZIndex !== highestZindex && el) {
+      const newZIndex = highestZindex + 1;
+      setHighestZindex(newZIndex);
+      el.style.zIndex = newZIndex.toString();
+    }
+  };
+
   return (
     <WindowManagerContext.Provider
       value={{
         windows,
         openWindow,
         closeWindow,
+        updateZIndex,
         windowRefs,
-        highestZindex,
-        setHighestZindex,
       }}
     >
       {children}

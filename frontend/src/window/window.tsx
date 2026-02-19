@@ -1,8 +1,13 @@
 import "./window.scss";
 import { renderByType, WindowType } from "./renderMap";
 import interact from "interactjs";
-import React from "react";
-import { useRef, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  Fragment,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons/faRectangleXmark";
 import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
@@ -17,61 +22,136 @@ interface WindowProps {
   type: string;
   children?: DesktopIcons[];
   link?: string;
-  size?: string;
-  ref?: React.Ref<HTMLDivElement>;
+  size?: string; // "500x800" | "fullscreen"
 }
+
+const TASKBAR_RATIO = 0.05;
 
 const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   const { windowId, label, icon, type, children, link, size } = props;
+
+  const nodeRef = useRef<HTMLDivElement | null>(null);
   const position = useRef({ x: 0, y: 0 });
-  const [startPositon, setStartPositon] = useState<{
-    top: number;
-    left: number;
-  }>({ top: 0, left: 0 });
-  const [windowSize, setWindowSize] = useState<{
-    width: number;
-    height: number;
-  }>({ width: 500, height: 500 });
-  const startPositionRef = useRef({ top: 0, left: 0 });
-  const { closeWindow, windowRefs, highestZindex, setHighestZindex } =
-    useWindowManager();
+
+  const { closeWindow, updateZIndex, windowRefs } = useWindowManager();
+
+  const isFullscreen = size === "fullscreen";
+
+  const [windowSize, setWindowSize] = useState({
+    width: 500,
+    height: 500,
+  });
+
+  const getTaskbarHeight = () => window.innerHeight * TASKBAR_RATIO;
+
+  const clampToViewport = (node: HTMLElement, x: number, y: number) => {
+    node.style.transform = `translate(${x}px, ${y}px)`;
+
+    const rect = node.getBoundingClientRect();
+    const bottomLimit = window.innerHeight - getTaskbarHeight();
+
+    let newX = x;
+    let newY = y;
+
+    if (rect.left < 0) newX += -rect.left;
+    if (rect.right > window.innerWidth) newX -= rect.right - window.innerWidth;
+    if (rect.top < 0) newY += -rect.top;
+    if (rect.bottom > bottomLimit) newY -= rect.bottom - bottomLimit;
+
+    return { x: newX, y: newY };
+  };
 
   const disableIframes = () => {
-    const node = windowRefs.current[windowId];
-    if (!node) return;
-
-    node.querySelectorAll("iframe").forEach((iframe) => {
+    document.querySelectorAll("iframe").forEach((iframe) => {
       (iframe as HTMLIFrameElement).style.pointerEvents = "none";
     });
   };
 
   const enableIframes = () => {
-    const node = windowRefs.current[windowId];
-    if (!node) return;
-
-    node.querySelectorAll("iframe").forEach((iframe) => {
+    document.querySelectorAll("iframe").forEach((iframe) => {
       (iframe as HTMLIFrameElement).style.pointerEvents = "auto";
     });
   };
 
+  useLayoutEffect(() => {
+    if (!nodeRef.current) return;
+
+    if (isFullscreen) {
+      const height = window.innerHeight - getTaskbarHeight();
+      const width = window.innerWidth;
+
+      setWindowSize({ width, height });
+
+      position.current = { x: -50, y: -50 };
+
+      Object.assign(nodeRef.current.style, {
+        width: `${width}px`,
+        height: `${height}px`,
+        transform: `translate(-50px, -50px)`,
+      });
+
+      return;
+    }
+
+    let width = 500;
+    let height = 500;
+
+    if (size && size.includes("x")) {
+      const [w, h] = size.split("x");
+      width = Number(w);
+      height = Number(h);
+    }
+
+    setWindowSize({ width, height });
+
+    const maxX = window.innerWidth - width;
+    const maxY = window.innerHeight - height - getTaskbarHeight();
+
+    const x = Math.floor(Math.random() * Math.max(0, maxX));
+    const y = Math.floor(Math.random() * Math.max(0, maxY));
+
+    position.current = { x, y };
+
+    nodeRef.current.style.transform = `translate(${x}px, ${y}px)`;
+  }, [size]);
+
   useEffect(() => {
-    startPositionRef.current = startPositon;
-  }, [startPositon]);
+    const node = nodeRef.current;
+    if (!node || isFullscreen) return;
 
-  //useEffect runs after the browser painted the DOM
-  useEffect(() => {
-    if (!windowRefs.current[windowId]) return;
+    const header = node.querySelector(".window-header") as HTMLDivElement;
 
-    const windowHeader = windowRefs.current[windowId].querySelector(
-      `.window-header`,
-    ) as HTMLDivElement;
+    if (!header) return;
 
-    if (!windowHeader) return;
+    const draggable = interact(header).draggable({
+      listeners: {
+        start() {
+          disableIframes();
+        },
+        move(event) {
+          let { x, y } = position.current;
 
-    interact(windowRefs.current[windowId]).resizable({
+          x += event.dx;
+          y += event.dy;
+
+          const clamped = clampToViewport(node, x, y);
+
+          position.current = clamped;
+          node.style.transform = `translate(${clamped.x}px, ${clamped.y}px)`;
+        },
+        end() {
+          enableIframes();
+        },
+      },
+    });
+
+    const resizable = interact(node).resizable({
       edges: { top: true, left: true, bottom: true, right: true },
       margin: 10,
       modifiers: [
+        interact.modifiers.restrictEdges({
+          outer: "parent",
+        }),
         interact.modifiers.restrictSize({
           min: { width: 300, height: 300 },
         }),
@@ -80,177 +160,105 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         start() {
           disableIframes();
         },
-
-        move: function (event) {
+        move(event) {
           let { x, y } = position.current;
 
-          x = (x || 0) + event.deltaRect.left;
-          y = (y || 0) + event.deltaRect.top;
+          // adjust position only for left/top resizing
+          x += event.deltaRect.left;
+          y += event.deltaRect.top;
 
-          position.current.x = x;
-          position.current.y = y;
+          position.current = { x, y };
 
-          Object.assign(event.target.style, {
-            width: `${event.rect.width}px`,
-            height: `${event.rect.height}px`,
-            transform: `translate(${x}px, ${y}px)`,
-          });
+          node.style.width = `${event.rect.width}px`;
+          node.style.height = `${event.rect.height}px`;
+          node.style.transform = `translate(${x}px, ${y}px)`;
+        },
+        end(event) {
+          enableIframes();
 
-          Object.assign(event.target.dataset, { x, y });
+          // update React state only once
           setWindowSize({
             width: event.rect.width,
             height: event.rect.height,
           });
         },
-
-        end() {
-          enableIframes();
-        },
       },
     });
-    interact(windowHeader).draggable({
-      listeners: {
-        start() {
-          disableIframes();
-        },
 
-        move(event) {
-          const pos = position.current;
-
-          pos.x += event.dx;
-          pos.y += event.dy;
-
-          const { top, left } = startPositionRef.current;
-          /*const maxX = window.innerWidth - windowSize.width - 40 - left;
-          const maxY =
-            window.innerHeight -
-            windowSize.height -
-            40 -
-            window.innerHeight * 0.05 -
-            top;
-          pos.x = Math.max(-left, Math.min(pos.x, maxX));
-          pos.y = Math.max(-top, Math.min(pos.y, maxY));
-          */
-
-          const maxX = window.innerWidth - windowSize.width - left;
-          const maxY =
-            window.innerHeight -
-            windowSize.height -
-            window.innerHeight * 0.05 -
-            top;
-          pos.x = Math.max(-left, Math.min(pos.x, maxX));
-          pos.y = Math.max(-top, Math.min(pos.y, maxY));
-
-          event.target.parentNode.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-        },
-
-        end() {
-          enableIframes();
-        },
-      },
-    });
-  }, [startPositon, windowSize]); //rerender because of usestate is "async"
-
-  //useLayoutEffects runs immediately after the DOM mutations but before the browser paints
-  useLayoutEffect(() => {
-    //setStates do not not update the value of the state variable in the current render, only in the next cycle.
-    let localWindowSize = [windowSize.width, windowSize.height];
-    if (size) {
-      const tempSize = size.split("x");
-      setWindowSize({
-        width: Number(tempSize[0]),
-        height: Number(tempSize[1]),
-      });
-    }
-    /*
-    const left = Math.floor(
-      Math.random() * (window.innerWidth - localWindowSize[0] - 40),
-    );
-    const top = Math.floor(
-      Math.random() *
-        (window.innerHeight -
-          localWindowSize[1] -
-          40 -
-          window.innerHeight * 0.05),
-    );
-    */
-    const left = Math.floor(
-      Math.random() * (window.innerWidth - localWindowSize[0]),
-    );
-    const top = Math.floor(
-      Math.random() *
-        (window.innerHeight - localWindowSize[1] - window.innerHeight * 0.05),
-    );
-    setStartPositon({ top: top, left: left });
-  }, []);
+    return () => {
+      draggable.unset();
+      resizable.unset();
+    };
+  }, [isFullscreen]);
 
   return (
-    <>
-      <div
-        className={`window window-${windowId}`}
-        ref={ref}
-        style={{
-          top: startPositon.top,
-          left: startPositon.left,
-          width: windowSize.width,
-          height: windowSize.height,
-        }}
-        onClick={() => {
-          if (!windowRefs.current[windowId]) return;
+    <div
+      className={`window window-${windowId}`}
+      ref={(el) => {
+        nodeRef.current = el;
 
-          const currentZIndex =
-            Number(windowRefs.current[windowId].style.zIndex) || 0;
+        if (typeof ref === "function") ref(el);
+        else if (ref) (ref as any).current = el;
 
-          if (currentZIndex !== highestZindex) {
-            const newZIndex = highestZindex + 1;
-            setHighestZindex(newZIndex);
-            windowRefs.current[windowId].style.zIndex = newZIndex.toString();
-          }
-        }}
-      >
-        {/* needed so that you can resize on the right side of scrollbar */}
-        <div className="resize-handle resize-handle-right"></div>
-        <div className="window-header">
-          <div className="window-header-image">
-            <img src={icon} />
-          </div>
-          <div className="window-header-title">{label}</div>
-          <div className="window-header-buttons">
-            <div className="window-header-button">
-              <FontAwesomeIcon icon={faWindowMinimize} size="lg" />
-            </div>
-            <div className="window-header-button">
-              <FontAwesomeIcon icon={faWindowMaximize} size="lg" />
-            </div>
-            <div
-              className="window-header-button"
-              onClick={() => {
-                closeWindow(windowId);
-              }}
-            >
-              <FontAwesomeIcon icon={faRectangleXmark} size="lg" />
-            </div>
-          </div>
+        if (el) windowRefs.current[windowId] = el;
+      }}
+      style={{
+        width: `${windowSize.width}px`,
+        height: `${windowSize.height}px`,
+      }}
+      onMouseDown={() => {
+        const node = nodeRef.current;
+        if (node) updateZIndex(node);
+      }}
+    >
+      {!isFullscreen && (
+        <Fragment>
+          <div className="resize-handle resize-handle-right"></div>
+          <div className="resize-handle resize-handle-left"></div>
+          <div className="resize-handle resize-handle-bottom"></div>
+          <div className="resize-handle resize-handle-top"></div>
+        </Fragment>
+      )}
+
+      <div className="window-header">
+        <div className="window-header-image">
+          <img src={icon} />
         </div>
-        {type === "folder" ? (
-          <>
-            <div className="window-action-buttons">
-              <div className="">File</div>
-              <div className="">Edit</div>
-              <div className="">View</div>
-              <div className="">Go</div>
-              <div className="">Favourites</div>
-              <div className="">Help</div>
-            </div>
-          </>
-        ) : (
-          <></>
-        )}
-        <div className="window-content">
-          {renderByType[type as WindowType]?.({ children, link })}
+
+        <div className="window-header-title">{label}</div>
+
+        <div className="window-header-buttons">
+          <div className="window-header-button">
+            <FontAwesomeIcon icon={faWindowMinimize} size="lg" />
+          </div>
+          <div className="window-header-button">
+            <FontAwesomeIcon icon={faWindowMaximize} size="lg" />
+          </div>
+          <div
+            className="window-header-button"
+            onClick={() => closeWindow(windowId)}
+          >
+            <FontAwesomeIcon icon={faRectangleXmark} size="lg" />
+          </div>
         </div>
       </div>
-    </>
+
+      {type === "folder" && (
+        <div className="window-action-buttons">
+          <div>File</div>
+          <div>Edit</div>
+          <div>View</div>
+          <div>Go</div>
+          <div>Favourites</div>
+          <div>Help</div>
+        </div>
+      )}
+
+      <div className="window-content">
+        {renderByType[type as WindowType]?.({ children, link })}
+      </div>
+    </div>
   );
 });
+
 export default Window;

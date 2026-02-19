@@ -8,7 +8,7 @@ interface TaskbarItem {
 
 export default function TaskbarItem(props: TaskbarItem) {
   const { windowId, label, icon } = props;
-  const { windowRefs } = useWindowManager();
+  const { windowRefs, updateZIndex } = useWindowManager();
   return (
     <>
       <div
@@ -19,6 +19,8 @@ export default function TaskbarItem(props: TaskbarItem) {
 
           el.style.visibility =
             el.style.visibility === "hidden" ? "visible" : "hidden";
+
+          updateZIndex(el);
         }}
       >
         <div className="taskbar-item-icon">

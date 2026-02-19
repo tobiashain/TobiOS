@@ -102,7 +102,7 @@ export const desktopIcons: DesktopIcons[] = [
     label: "Todo App",
     icon: "/TobiOS/note.png",
     link: "http://localhost:8080/Todo-List/",
-    size: "1500x800",
+    size: "fullscreen",
   },
   {
     id: "weather",
@@ -166,6 +166,12 @@ export const desktopIcons: DesktopIcons[] = [
             label: "Smaller Projects",
             icon: "/TobiOS/folder.png",
             children: [
+              {
+                id: "IMCMguide",
+                type: "project",
+                label: "IMCM Guide",
+                icon: "/TobiOS/guidebook.png",
+              },
               {
                 id: "libraryProject",
                 type: "project",
