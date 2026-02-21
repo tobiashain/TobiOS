@@ -1,0 +1,148 @@
+export interface Project {
+  id: string;
+  title: string;
+  subTitle: string;
+  context: string;
+  chips: string[];
+  features: string[];
+  images?: string[];
+  website?: string;
+  sourceCode?: string;
+}
+
+export const projects: Project[] = [
+  {
+    id: "simplefeedback",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: [
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "Sass",
+      "MySQL",
+      "NestJS",
+      "Knex.js",
+      "Docker",
+      "Github Actions",
+      "Google Cloud Storage",
+      "Google OAuth 2.0",
+    ],
+    features: ["SQL"],
+    images: ["https://picsum.photos/1200/800", "https://picsum.photos/400/600"],
+    website: "https://simplefeedback.de/",
+  },
+  {
+    id: "tobiOS",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: [
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "Sass",
+      "interact.js",
+      "Github Actions",
+      "Cloudflare Workers",
+    ],
+    features: ["SQL"],
+    images: ["https://picsum.photos/1200/800", "https://picsum.photos/400/600"],
+    website: "https://example.com/",
+    sourceCode: "https://example.com/",
+  },
+  {
+    id: "kitzEdu",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["Next.js", "Strapi", "JavaScript", "Sass"],
+    features: [],
+    images: [],
+    sourceCode: "https://example.com/",
+  },
+  {
+    id: "betterSpotify",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["ASP.Net MVC", "C#", "JavaScript", "TailwindCSS", "Spotify API"],
+    features: [],
+    images: [],
+    sourceCode: "https://example.com/",
+  },
+  {
+    id: "todoApp",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["JavaScript", "TypeScript", "Sass"],
+    features: [],
+    images: [],
+    website: "https://example.com/",
+    sourceCode: "https://example.com/",
+  },
+  {
+    id: "wordpress",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["Wordpress", "Elementor"],
+    features: [],
+  },
+  {
+    id: "imcmGuide",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["PHP", "JavaScript", "CSS"],
+    features: [],
+    images: [],
+  },
+  {
+    id: "skyfallow",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["Godot", "GDScript", "C#"],
+    features: [],
+    images: [],
+  },
+  {
+    id: "untitled3dPlatformer",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["Unity", "C#"],
+    features: [],
+    images: [],
+  },
+  {
+    id: "unserLagerhaus",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["C#", "MySQL", "Windows Forms"],
+    features: [],
+    images: [],
+  },
+  {
+    id: "minesweeper",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["C#", "Windows Forms"],
+    features: [],
+    images: [],
+  },
+  {
+    id: "snake",
+    title: "",
+    subTitle: "",
+    context: "",
+    chips: ["C#", "Raylib"],
+    features: [],
+    images: [],
+  },
+];

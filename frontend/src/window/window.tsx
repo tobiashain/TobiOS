@@ -117,6 +117,8 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
   useEffect(() => {
     const node = nodeRef.current;
+    if (node) updateZIndex(node);
+
     if (!node || isFullscreen) return;
 
     const header = node.querySelector(".window-header") as HTMLDivElement;
@@ -255,7 +257,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       )}
 
       <div className="window-content">
-        {renderByType[type as WindowType]?.({ children, link })}
+        {renderByType[type as WindowType]?.({ children, link, windowId })}
       </div>
     </div>
   );

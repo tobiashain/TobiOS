@@ -1,14 +1,15 @@
 import DesktopIcon from "../desktop/desktop-icon.tsx";
 import MusicApp from "../windowApps/music.tsx";
-import CalculatorApp from "../windowApps/calculator.jsx";
 import { JSX } from "react/jsx-runtime";
 import { DesktopIcons } from "../desktop/desktopIcons.ts";
+import Project from "../windowApps/project.tsx";
 
-export type WindowType = "folder" | "video" | "iframe" | "music" | "calculator";
+export type WindowType = "folder" | "video" | "iframe" | "music" | "project";
 
-interface RenderProps {
+export interface RenderProps {
   children?: any;
   link?: string;
+  windowId?: string;
 }
 
 export const renderByType: Record<
@@ -49,6 +50,6 @@ export const renderByType: Record<
       />
     </>
   ),
+  project: (props) => <Project windowId={props.windowId ?? ""} />,
   music: () => <MusicApp />,
-  calculator: () => <CalculatorApp />,
 };
