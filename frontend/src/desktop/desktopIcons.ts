@@ -129,6 +129,7 @@ export const desktopIcons: DesktopIcons[] = [
             type: "project",
             label: "Simple Feedback",
             icon: "/TobiOS/icons/simplefeedback.png",
+            size: "fullscreen",
           },
           {
             id: "tobiOS",

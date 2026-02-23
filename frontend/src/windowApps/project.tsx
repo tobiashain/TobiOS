@@ -1,5 +1,6 @@
-import { RenderProps } from "../window/renderMap";
 import { projects } from "./projects";
+import ImageGrid from "./imagegrid";
+import "./project.scss";
 
 export default function Project({ windowId }: { windowId: string }) {
   const project = projects.find((project) => {
@@ -10,7 +11,9 @@ export default function Project({ windowId }: { windowId: string }) {
   return (
     <>
       <div className="project">
-        <aside className="images"></aside>
+        <aside className="images">
+          <ImageGrid images={project.images} />
+        </aside>
         <main>
           <header>
             <h1 className="title">{project.title}</h1>
@@ -23,26 +26,28 @@ export default function Project({ windowId }: { windowId: string }) {
           <section>
             <h3>Technologies Used</h3>
             <div className="technologies">
-              {project.chips.map((chip, index) => {
-                return (
-                  <div key={index} className="chip">
-                    {chip}
-                  </div>
-                );
-              })}
+              <ul className="chips">
+                {project.chips.map((chip, index) => {
+                  return (
+                    <li key={index} className="chip">
+                      {chip}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </section>
           <section>
             <h3>Key Features</h3>
-            <div className="features">
+            <ul className="features">
               {project.features.map((feature, index) => {
                 return (
-                  <div key={index} className="feature">
+                  <li key={index} className="feature">
                     {feature}
-                  </div>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </section>
           <div className="btns">
             {project.website && (

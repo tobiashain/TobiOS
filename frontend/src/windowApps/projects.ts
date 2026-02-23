@@ -5,7 +5,7 @@ export interface Project {
   context: string;
   chips: string[];
   features: string[];
-  images?: string[];
+  images: string[];
   website?: string;
   sourceCode?: string;
 }
@@ -13,9 +13,10 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "simplefeedback",
-    title: "",
-    subTitle: "",
-    context: "",
+    title: "Simplefeedback",
+    subTitle: "Customer-Relationship-Management Platform",
+    context:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     chips: [
       "React",
       "JavaScript",
@@ -25,11 +26,18 @@ export const projects: Project[] = [
       "NestJS",
       "Knex.js",
       "Docker",
+      "Stripe",
       "Github Actions",
       "Google Cloud Storage",
       "Google OAuth 2.0",
     ],
-    features: ["SQL"],
+    features: [
+      "Create Surveys",
+      "Stripe payment processing integration",
+      "Data visualization via Diagrams",
+      "HTML Email Builder",
+      "Send Newsletters",
+    ],
     images: ["https://picsum.photos/1200/800", "https://picsum.photos/400/600"],
     website: "https://simplefeedback.de/",
   },
@@ -90,6 +98,7 @@ export const projects: Project[] = [
     context: "",
     chips: ["Wordpress", "Elementor"],
     features: [],
+    images: [],
   },
   {
     id: "imcmGuide",
