@@ -3,10 +3,16 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+  --primary: #1f3a8a;
+  --secondary: #0f766e;
+  --accent: #06b6d4;
+  --main-background: #0b1020;
+  --window: #f3f4f6;
+  --text-light: #e5e7eb;
+  --text-dark: #111827;
+}
 .container {
-  /* padding: 20px;
-  background-color: black;
-  box-sizing: border-box; */
   height: 100svh;
 }
 

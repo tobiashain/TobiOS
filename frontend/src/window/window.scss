@@ -3,7 +3,7 @@ $handle-size: 8px;
 .window {
   width: 500px;
   height: 500px;
-  background-color: white;
+  color: var(--text-light);
   position: absolute;
   border-radius: 5px;
   border: 1px solid rgb(40, 40, 40);
@@ -47,7 +47,7 @@ $handle-size: 8px;
 
 .window-header {
   height: 40px;
-  background-color: aquamarine;
+  background-color: var(--primary);
   display: flex;
   align-items: center;
   padding: 5px 10px;
@@ -81,7 +81,7 @@ $handle-size: 8px;
   padding: 5px;
   box-sizing: border-box;
   height: 30px;
-  background-color: bisque;
+  background-color: var(--secondary);
   flex-shrink: 0;
 }
 
@@ -90,6 +90,7 @@ $handle-size: 8px;
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+  background-color: var(--window);
 }
 
 .window-content:has(iframe) {
@@ -102,6 +103,10 @@ $handle-size: 8px;
   grid-auto-rows: 120px;
   grid-template-columns: repeat(4, 1fr);
   box-sizing: border-box;
+
+  .desktop-icon {
+    color: var(--text-dark);
+  }
 }
 
 .video {

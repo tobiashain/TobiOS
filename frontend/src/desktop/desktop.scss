@@ -3,9 +3,9 @@
   background: #2a7b9b;
   background: linear-gradient(
     90deg,
-    rgba(42, 123, 155, 1) 0%,
-    rgba(87, 199, 133, 1) 50%,
-    rgba(83, 152, 237, 1) 100%
+    rgba(11, 16, 32, 1) 0%,
+    rgba(16, 38, 74, 1) 50%,
+    rgba(25, 76, 140, 1) 100%
   );
   user-select: none;
   display: grid;
@@ -26,6 +26,7 @@
   align-items: center;
   text-align: center;
   cursor: pointer;
+  color: var(--text-light);
 
   .icon {
     padding-top: 5px;

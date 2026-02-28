@@ -1,6 +1,7 @@
 .taskbar {
   height: 5%;
-  background-color: aqua;
+  background-color: var(--primary);
+  color: var(--text-light);
   display: flex;
 }
 
