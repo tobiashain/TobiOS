@@ -38,7 +38,12 @@ export const projects: Project[] = [
       "HTML Email Builder",
       "Send Newsletters",
     ],
-    images: ["https://picsum.photos/1200/800", "https://picsum.photos/400/600"],
+    images: [
+      "/TobiOS/pictures/simplefeedback/1.png",
+      "/TobiOS/pictures/simplefeedback/2.png",
+      "/TobiOS/pictures/simplefeedback/3.png",
+      "/TobiOS/pictures/simplefeedback/4.png",
+    ],
     website: "https://simplefeedback.de/",
   },
   {
@@ -101,7 +106,7 @@ export const projects: Project[] = [
     images: [],
   },
   {
-    id: "imcmGuide",
+    id: "IMCMguide",
     title: "",
     subTitle: "",
     context: "",
@@ -119,7 +124,7 @@ export const projects: Project[] = [
     images: [],
   },
   {
-    id: "untitled3dPlatformer",
+    id: "untitledPlatformer",
     title: "",
     subTitle: "",
     context: "",
