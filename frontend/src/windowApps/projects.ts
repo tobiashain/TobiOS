@@ -61,7 +61,7 @@ export const projects: Project[] = [
       "Cloudflare Workers",
     ],
     features: ["SQL"],
-    images: ["https://picsum.photos/1200/800", "https://picsum.photos/400/600"],
+    images: [],
     website: "https://example.com/",
     sourceCode: "https://example.com/",
   },
@@ -72,7 +72,12 @@ export const projects: Project[] = [
     context: "",
     chips: ["Next.js", "Strapi", "JavaScript", "Sass"],
     features: [],
-    images: [],
+    images: [
+      "/TobiOS/pictures/kitz-edu/1.png",
+      "/TobiOS/pictures/kitz-edu/2.png",
+      "/TobiOS/pictures/kitz-edu/3.png",
+      "/TobiOS/pictures/kitz-edu/4.png",
+    ],
     sourceCode: "https://example.com/",
   },
   {
