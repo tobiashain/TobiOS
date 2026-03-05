@@ -153,10 +153,10 @@ export const desktopIcons: DesktopIcons[] = [
             size: "fullscreen",
           },
           {
-            id: "todoApp",
+            id: "odin",
             type: "project",
-            label: "Todo App",
-            icon: "/TobiOS/icons/note.png",
+            label: "Odin",
+            icon: "/TobiOS/icons/odin.png",
             size: "fullscreen",
           },
           {

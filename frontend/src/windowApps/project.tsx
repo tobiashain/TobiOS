@@ -1,4 +1,5 @@
 import { projects } from "./projects";
+import Chip from "../shared/chip";
 import ImageGrid from "./imagegrid";
 import "./project.scss";
 
@@ -26,15 +27,11 @@ export default function Project({ windowId }: { windowId: string }) {
           <section>
             <h3>Technologies Used</h3>
             <div className="technologies">
-              <ul className="chips">
-                {project.chips.map((chip, index) => {
-                  return (
-                    <li key={index} className="chip">
-                      {chip}
-                    </li>
-                  );
+              <div className="chips">
+                {project.chips.map((text, index) => {
+                  return <Chip key={index} text={text} />;
                 })}
-              </ul>
+              </div>
             </div>
           </section>
           <section>
