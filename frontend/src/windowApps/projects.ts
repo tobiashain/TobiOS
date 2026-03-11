@@ -102,7 +102,12 @@ export const projects: Project[] = [
       "This project is part of a school year project and we were allowed to develop what we wanted. ",
     chips: ["ASP.Net MVC", "C#", "JavaScript", "TailwindCSS", "Spotify API"],
     features: [],
-    images: [],
+    images: [
+      "/TobiOS/pictures/better-spotify/1.png",
+      "/TobiOS/pictures/better-spotify/2.png",
+      "/TobiOS/pictures/better-spotify/3.png",
+      "/TobiOS/pictures/better-spotify/4.png",
+    ],
     sourceCode: "https://example.com/",
   },
   {
