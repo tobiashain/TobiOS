@@ -82,12 +82,12 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
       setWindowSize({ width, height });
 
-      position.current = { x: -50, y: -50 };
+      position.current = { x: 0, y: 0 };
 
       Object.assign(nodeRef.current.style, {
         width: `${width}px`,
         height: `${height}px`,
-        transform: `translate(-50px, -50px)`,
+        transform: `translate(0px, 0px)`,
       });
 
       return;
@@ -178,7 +178,6 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         end(event) {
           enableIframes();
 
-          // update React state only once
           setWindowSize({
             width: event.rect.width,
             height: event.rect.height,
