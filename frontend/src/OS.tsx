@@ -5,23 +5,19 @@ import { useState } from "react";
 import { WindowManagerProvider } from "./shared/WindowManagerContext";
 
 export default function OS() {
-  const [bootUp, setBootUp] = useState<boolean>(false);
+  const [bootUp, setBootUp] = useState<boolean>(true);
 
   return (
     <>
       <div className="container">
         <div className="screen">
           {bootUp ? (
-            <>
-              <Boot />
-            </>
+            <Boot onFinish={() => setBootUp(false)} />
           ) : (
-            <>
-              <WindowManagerProvider>
-                <Desktop />
-                <Taskbar />
-              </WindowManagerProvider>
-            </>
+            <WindowManagerProvider>
+              <Desktop />
+              <Taskbar />
+            </WindowManagerProvider>
           )}
         </div>
       </div>
