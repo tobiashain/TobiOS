@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "./project.scss";
+import "./imageGrid.scss";
 
 export default function ImageGrid({ images }: { images: string[] }) {
   const [selected, setSelected] = useState<string | null>(null);

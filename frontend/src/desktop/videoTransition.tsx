@@ -46,7 +46,7 @@ export default function VideoTransition({
       playsInline
       preload="auto"
       loop={false}
-      className={`transition-video ${visible ? "visible" : ""}`}
+      className={`transition-video ${visible ? "transition-video--visible" : ""}`}
     >
       <source src="lain.mp4" type="video/mp4" />
     </video>

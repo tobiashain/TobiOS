@@ -16,10 +16,10 @@ export default function Taskbar() {
   return (
     <>
       <div className="taskbar">
-        <div className="osButton">
+        <div className="taskbar-os-button">
           <FontAwesomeIcon icon={faWindows} size="2x" />
         </div>
-        <div className="tabs">
+        <div className="taskbar__tabs">
           {windows.map((window) => (
             <TaskbarItem
               key={window.id}
@@ -29,9 +29,9 @@ export default function Taskbar() {
             />
           ))}
         </div>
-        <div className="settings">
-          <div className="site">Site A</div>
-          <div className="time">
+        <div className="taskbar-settings">
+          <div className="taskbar-settings__site">Site A</div>
+          <div className="taskbar-settings__time">
             {time.toLocaleString("de-DE", {
               day: "2-digit",
               month: "2-digit",

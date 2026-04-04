@@ -18,61 +18,30 @@ $handle-size: 8px;
     0 2px 8px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
-  &.window-fullscreen {
+  &--fullscreen {
     border-radius: 0;
     border: none;
     box-shadow: none;
   }
-}
 
-.resize-handle {
-  position: absolute;
-  z-index: 1000;
-}
+  &__header {
+    height: 40px;
+    background-color: var(--primary);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    user-select: none;
+  }
 
-.resize-handle-right {
-  top: 40px;
-  right: 0;
-  width: $handle-size;
-  height: calc(100% - 40px);
-}
-
-.resize-handle-left {
-  top: 40px;
-  left: 0;
-  width: $handle-size;
-  height: calc(100% - 40px);
-}
-
-.resize-handle-bottom {
-  bottom: 0;
-  width: 100%;
-  height: $handle-size;
-}
-
-.resize-handle-top {
-  top: 0;
-  width: 100%;
-  height: $handle-size;
-}
-
-.window-header {
-  height: 40px;
-  background-color: var(--primary);
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  display: flex;
-  align-items: center;
-  padding: 0 0 0 10px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  user-select: none;
-
-  .window-header-image {
+  &__image {
     height: 18px;
     flex-shrink: 0;
     display: flex;
@@ -83,7 +52,7 @@ $handle-size: 8px;
     }
   }
 
-  .window-header-title {
+  &__title {
     flex-grow: 1;
     margin-left: 8px;
     font-size: 12px;
@@ -95,134 +64,165 @@ $handle-size: 8px;
     text-overflow: ellipsis;
   }
 
-  .window-header-buttons {
+  &__buttons {
     display: flex;
     align-items: stretch;
     height: 100%;
     margin-left: auto;
     flex-shrink: 0;
-
-    .window-header-button {
-      width: 46px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.7;
-      transition:
-        background-color 0.1s ease,
-        opacity 0.1s ease;
-      cursor: pointer;
-
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.12);
-        opacity: 1;
-      }
-
-      &:last-child:hover {
-        background-color: #c42b1c;
-        opacity: 1;
-      }
-    }
   }
-}
 
-.window-action-buttons {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  padding: 0 4px;
-  box-sizing: border-box;
-  height: 32px;
-  background-color: var(--secondary);
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  flex-shrink: 0;
-  font-size: 12px;
-
-  > div {
-    height: 22px;
-    padding: 0 8px;
+  &__button {
+    width: 46px;
+    height: 100%;
     display: flex;
     align-items: center;
-    border-radius: 3px;
-    opacity: 0.75;
-    cursor: pointer;
+    justify-content: center;
+    opacity: 0.7;
     transition:
       background-color 0.1s ease,
       opacity 0.1s ease;
-    white-space: nowrap;
+    cursor: pointer;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.12);
       opacity: 1;
     }
 
-    &:active {
-      background-color: rgba(255, 255, 255, 0.16);
+    &:last-child:hover {
+      background-color: #c42b1c;
+      opacity: 1;
     }
   }
-}
 
-.window-content {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0;
-  background-color: var(--window);
+  &__resize-handle {
+    position: absolute;
+    z-index: 1000;
 
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+    &--right {
+      top: 40px;
+      right: 0;
+      width: $handle-size;
+      height: calc(100% - 40px);
+    }
 
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
+    &--left {
+      top: 40px;
+      left: 0;
+      width: $handle-size;
+      height: calc(100% - 40px);
+    }
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+    &--bottom {
+      bottom: 0;
+      width: 100%;
+      height: $handle-size;
+    }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.18);
-    border-radius: 4px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+    &--top {
+      top: 0;
+      width: 100%;
+      height: $handle-size;
     }
   }
-}
 
-.window-content:has(iframe) {
-  overflow: hidden;
-}
+  &__action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 4px;
+    box-sizing: border-box;
+    height: 32px;
+    background-color: var(--secondary);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+    font-size: 12px;
 
-.window-folder {
-  padding: 10px;
-  display: grid;
-  grid-auto-rows: 120px;
-  grid-template-columns: repeat(4, 1fr);
-  box-sizing: border-box;
+    > div {
+      height: 22px;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      border-radius: 3px;
+      opacity: 0.75;
+      cursor: pointer;
+      transition:
+        background-color 0.1s ease,
+        opacity 0.1s ease;
+      white-space: nowrap;
 
-  .desktop-icon {
-    color: var(--text-dark);
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        opacity: 1;
+      }
+
+      &:active {
+        background-color: rgba(255, 255, 255, 0.16);
+      }
+    }
   }
-}
 
-.video {
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-}
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    background-color: var(--window);
 
-iframe {
-  border: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.18);
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    &:has(iframe) {
+      overflow: hidden;
+    }
+  }
+
+  &__folder {
+    padding: 10px;
+    display: grid;
+    grid-auto-rows: 120px;
+    grid-template-columns: repeat(4, 1fr);
+    box-sizing: border-box;
+
+    .desktop-icons {
+      color: var(--text-dark);
+    }
+  }
+
+  &__video {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  iframe {
+    border: none;
+  }
 }

@@ -10,7 +10,7 @@ export default function DesktopIcon(props: DesktopIcons) {
   return (
     <>
       <div
-        className="desktop-icon"
+        className="desktop-icons"
         onClick={() => {
           if (type === "link" && link) {
             open(link, "_blank");
@@ -21,10 +21,10 @@ export default function DesktopIcon(props: DesktopIcons) {
           }
         }}
       >
-        <div className="icon">
+        <div className="desktop-icons__icon">
           <img src={icon} alt={label} />
         </div>
-        <div className="label">{label}</div>
+        <div className="desktop-icons__label">{label}</div>
       </div>
 
       {showVideo && <VideoTransition onFinish={() => setShowVideo(false)} />}

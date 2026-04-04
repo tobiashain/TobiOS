@@ -18,7 +18,7 @@ export const renderByType: Record<
 > = {
   folder: (props) => (
     <>
-      <div className="window-folder">
+      <div className="window__folder">
         {props.children.map((child: JSX.IntrinsicAttributes & DesktopIcons) => (
           <DesktopIcon key={child.id} {...child} />
         ))}
@@ -27,7 +27,7 @@ export const renderByType: Record<
   ),
   video: (props) => (
     <>
-      <div className="video">
+      <div className="window__video">
         <iframe
           src={`https://www.youtube.com/embed/${props.link}?autoplay=1&controls=0&loop=1&playlist=${props.link}`}
           allow="autoplay; encrypted-media"

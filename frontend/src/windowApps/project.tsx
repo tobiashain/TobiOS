@@ -11,22 +11,22 @@ export default function Project({ windowId }: { windowId: string }) {
 
   return (
     <>
-      <div className="project">
-        <aside className="images">
+      <div className="window-project">
+        <aside className="window-project__images">
           <ImageGrid images={project.images} />
         </aside>
         <main>
           <header>
-            <h1 className="title">{project.title}</h1>
-            <h2 className="sub-title">{project.subTitle}</h2>
+            <h1 className="window-project__title">{project.title}</h1>
+            <h2 className="window-project__subtitle">{project.subTitle}</h2>
           </header>
           <section>
             <h3>Context & Motivation</h3>
-            <div className="context">{project.context}</div>
+            <div className="window-project__context">{project.context}</div>
           </section>
           <section>
             <h3>Technologies Used</h3>
-            <div className="technologies">
+            <div className="window-project__technologies">
               <div className="chips">
                 {project.chips.map((text, index) => {
                   return <Chip key={index} text={text} />;
@@ -36,17 +36,17 @@ export default function Project({ windowId }: { windowId: string }) {
           </section>
           <section>
             <h3>Key Features</h3>
-            <ul className="features">
+            <ul className="window-project_features">
               {project.features.map((feature, index) => {
                 return (
-                  <li key={index} className="feature">
+                  <li key={index} className="window-project__feature">
                     {feature}
                   </li>
                 );
               })}
             </ul>
           </section>
-          <div className="btns">
+          <div className="window-project__buttons">
             {project.website && (
               <a href={project.website} target="_blank">
                 <button>Live Preview</button>

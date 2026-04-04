@@ -121,7 +121,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
     if (!node || isFullscreen) return;
 
-    const header = node.querySelector(".window-header") as HTMLDivElement;
+    const header = node.querySelector(".window__header") as HTMLDivElement;
 
     if (!header) return;
 
@@ -194,7 +194,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
   return (
     <div
-      className={`window window-${windowId}`}
+      className={`window window--${windowId}`}
       ref={(el) => {
         nodeRef.current = el;
 
@@ -214,38 +214,35 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     >
       {!isFullscreen && (
         <Fragment>
-          <div className="resize-handle resize-handle-right"></div>
-          <div className="resize-handle resize-handle-left"></div>
-          <div className="resize-handle resize-handle-bottom"></div>
-          <div className="resize-handle resize-handle-top"></div>
+          <div className="window__resize-handle window__resize-handle--right"></div>
+          <div className="window__resize-handle window__resize-handle--left"></div>
+          <div className="window__resize-handle window__resize-handle--bottom"></div>
+          <div className="window__resize-handle window__resize-handle--top"></div>
         </Fragment>
       )}
 
-      <div className="window-header">
-        <div className="window-header-image">
+      <div className="window__header">
+        <div className="window__image">
           <img src={icon} />
         </div>
 
-        <div className="window-header-title">{label}</div>
+        <div className="window__title">{label}</div>
 
-        <div className="window-header-buttons">
-          <div className="window-header-button">
+        <div className="window__buttons">
+          <div className="window__button">
             <FontAwesomeIcon icon={faWindowMinimize} size="lg" />
           </div>
-          <div className="window-header-button">
+          <div className="window__button">
             <FontAwesomeIcon icon={faWindowMaximize} size="lg" />
           </div>
-          <div
-            className="window-header-button"
-            onClick={() => closeWindow(windowId)}
-          >
+          <div className="window__button" onClick={() => closeWindow(windowId)}>
             <FontAwesomeIcon icon={faRectangleXmark} size="lg" />
           </div>
         </div>
       </div>
 
       {type === "folder" && (
-        <div className="window-action-buttons">
+        <div className="window__action-buttons">
           <div>File</div>
           <div>Edit</div>
           <div>View</div>
@@ -255,7 +252,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         </div>
       )}
 
-      <div className="window-content">
+      <div className="window__content">
         {renderByType[type as WindowType]?.({ children, link, windowId })}
       </div>
     </div>

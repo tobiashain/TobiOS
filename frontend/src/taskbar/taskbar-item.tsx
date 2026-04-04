@@ -23,10 +23,10 @@ export default function TaskbarItem(props: TaskbarItem) {
           updateZIndex(el);
         }}
       >
-        <div className="taskbar-item-icon">
+        <div className="taskbar-item__icon">
           <img src={icon} />
         </div>
-        <div className="taskbar-item-label">{label}</div>
+        <div className="taskbar-item__label">{label}</div>
       </div>
     </>
   );
