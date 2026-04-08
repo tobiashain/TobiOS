@@ -4,7 +4,7 @@ import Window from "../window/window";
 import { desktopIcons } from "./desktopIcons";
 import { useWindowManager } from "../shared/WindowManagerContext";
 import { useEffect } from "react";
-import preloadVideo from "../shared/preload";
+import { preloadVideo } from "../shared/preload";
 import DevWatermark from "./dev-watermark";
 
 export default function Desktop() {

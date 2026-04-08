@@ -14,6 +14,7 @@ const BOOT_LINES = [
 
 const LINE_DELAY = 320;
 const TERMINAL_HOLD = 500;
+const EXIT_DURATION = 600;
 
 interface BootProps {
   onFinish: () => void;
@@ -24,6 +25,7 @@ type Phase = "terminal" | "login";
 export default function Boot({ onFinish }: BootProps) {
   const [phase, setPhase] = useState<Phase>("terminal");
   const [visibleLines, setVisibleLines] = useState<number>(0);
+  const [exiting, setExiting] = useState(false);
   const time = useTime();
 
   useEffect(() => {
@@ -38,8 +40,22 @@ export default function Boot({ onFinish }: BootProps) {
     return () => clearTimeout(t);
   }, [phase, visibleLines]);
 
+  const handleSignIn = () => {
+    if (exiting) return;
+    setExiting(true);
+    setTimeout(() => onFinish(), EXIT_DURATION);
+  };
+
   return (
-    <div className={`boot-root boot-root--${phase}`}>
+    <div
+      className={[
+        "boot-root",
+        `boot-root--${phase}`,
+        exiting ? "boot-root--exiting" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       {phase === "terminal" && (
         <div className="boot-terminal">
           {BOOT_LINES.slice(0, visibleLines).map((line, i) => (
@@ -56,7 +72,7 @@ export default function Boot({ onFinish }: BootProps) {
         <div className="boot-login">
           <div className="boot-login__time">{time}</div>
 
-          <div className="boot-login__user" onClick={onFinish}>
+          <div className="boot-login__user" onClick={handleSignIn}>
             <div className="boot-login__avatar">
               <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="32" cy="24" r="14" fill="rgba(255,255,255,0.85)" />
