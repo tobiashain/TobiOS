@@ -106,7 +106,6 @@ export const projects: Project[] = [
       "/TobiOS/pictures/better-spotify/1.png",
       "/TobiOS/pictures/better-spotify/2.png",
       "/TobiOS/pictures/better-spotify/3.png",
-      "/TobiOS/pictures/better-spotify/4.png",
     ],
     sourceCode: "https://example.com/",
   },
@@ -145,15 +144,6 @@ export const projects: Project[] = [
     sourceCode: "https://example.com/",
   },
   {
-    id: "wordpress",
-    title: "",
-    subTitle: "",
-    context: "",
-    chips: ["Wordpress", "Elementor"],
-    features: [],
-    images: [],
-  },
-  {
     id: "IMCMguide",
     title: "",
     subTitle: "",
@@ -169,7 +159,12 @@ export const projects: Project[] = [
     context: "",
     chips: ["Godot", "GDScript", "C#"],
     features: [],
-    images: [],
+    images: [
+      "/TobiOS/pictures/skyfallow/1.png",
+      "/TobiOS/pictures/skyfallow/2.png",
+      "/TobiOS/pictures/skyfallow/3.png",
+      "/TobiOS/pictures/skyfallow/4.png",
+    ],
   },
   {
     id: "untitledPlatformer",
@@ -178,7 +173,12 @@ export const projects: Project[] = [
     context: "",
     chips: ["Unity", "C#"],
     features: [],
-    images: [],
+    images: [
+      "/TobiOS/pictures/untitledPlatformer/1.png",
+      "/TobiOS/pictures/untitledPlatformer/2.png",
+      "/TobiOS/pictures/untitledPlatformer/3.png",
+      "/TobiOS/pictures/untitledPlatformer/4.png",
+    ],
   },
   {
     id: "unserLagerhaus",
@@ -187,7 +187,11 @@ export const projects: Project[] = [
     context: "",
     chips: ["C#", "MySQL", "Windows Forms"],
     features: [],
-    images: [],
+    images: [
+      "/TobiOS/pictures/unserLagerhaus/1.png",
+      "/TobiOS/pictures/unserLagerhaus/2.png",
+      "/TobiOS/pictures/unserLagerhaus/3.png",
+    ],
   },
   {
     id: "minesweeper",
@@ -196,7 +200,11 @@ export const projects: Project[] = [
     context: "",
     chips: ["C#", "Windows Forms"],
     features: [],
-    images: [],
+    images: [
+      "/TobiOS/pictures/minesweeper/1.png",
+      "/TobiOS/pictures/minesweeper/2.png",
+      "/TobiOS/pictures/minesweeper/3.png",
+    ],
   },
   {
     id: "snake",

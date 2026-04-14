@@ -160,13 +160,6 @@ export const desktopIcons: DesktopIcons[] = [
             size: "fullscreen",
           },
           {
-            id: "wordpress",
-            type: "project",
-            label: "Wordpress",
-            icon: "/TobiOS/icons/wordpress.png",
-            size: "fullscreen",
-          },
-          {
             id: "smallerProjects",
             type: "folder",
             label: "Smaller Projects",
