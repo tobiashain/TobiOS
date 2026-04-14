@@ -10,7 +10,7 @@ export const desktopIcons: DesktopIcons[] = [
     type: "link",
     label: "Github",
     icon: "/TobiOS/icons/github.png",
-    link: "https://github.com",
+    link: "https://github.com/tobiashain",
   },
   {
     id: "readme",
@@ -93,8 +93,8 @@ export const desktopIcons: DesktopIcons[] = [
     type: "iframe",
     label: "Browser",
     icon: "/TobiOS/icons/browser.png",
-    link: "http://localhost:8080/Restaurant/",
-    size: "1200x700",
+    link: "https://tobiashain.github.io/",
+    size: "fullscreen",
   },
   {
     id: "todoList",
