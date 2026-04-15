@@ -1,6 +1,7 @@
 import getSpotifyArtists from "./endpoints/getSpotifyArtists";
 import getSpotifyTracks from "./endpoints/getSpotifyTracks";
 import ytMusicWorker from "./endpoints/ytMusicWorker";
+import getWeatherData from "./endpoints/getWeatherData";
 
 export default {
   async fetch(
@@ -30,6 +31,11 @@ export default {
         env,
         ctx,
       );
+    }
+
+    if (pathname === "/api/weather" && request.method === "GET") {
+      const weatherData = await getWeatherData(env);
+      return withCors(Response.json(weatherData));
     }
 
     // Delegate image proxy + anything else to ytMusicWorker
