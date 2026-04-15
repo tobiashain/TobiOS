@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./imageGrid.scss";
 
 export default function ImageGrid({ images }: { images: string[] }) {
@@ -6,19 +6,14 @@ export default function ImageGrid({ images }: { images: string[] }) {
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelected(null);
-      }
+      if (e.key === "Escape") setSelected(null);
     };
-
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
   const gridItems = [...images];
-  while (gridItems.length < 4) {
-    gridItems.push("");
-  }
+  while (gridItems.length < 4) gridItems.push("");
 
   return (
     <>
@@ -29,7 +24,12 @@ export default function ImageGrid({ images }: { images: string[] }) {
             className={`image-grid__item ${!src ? "image-grid__item--empty" : ""}`}
             onClick={() => src && setSelected(src)}
           >
-            {src && <img src={src} alt={`Preview ${index + 1}`} />}
+            {src && (
+              <>
+                <img src={src} alt={`Preview ${index + 1}`} />
+                <div className="image-grid__overlay" />
+              </>
+            )}
           </div>
         ))}
       </div>

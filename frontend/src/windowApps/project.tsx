@@ -1,6 +1,6 @@
 import { projects } from "./projects";
 import Chip from "../shared/chip";
-import ImageGrid from "./imagegrid";
+import ImageGrid from "./imageGrid";
 import "./project.scss";
 
 export default function Project({ windowId }: { windowId: string }) {
@@ -29,7 +29,7 @@ export default function Project({ windowId }: { windowId: string }) {
             <div className="window-project__technologies">
               <div className="chips">
                 {project.chips.map((text, index) => {
-                  return <Chip key={index} text={text} />;
+                  return <Chip key={index} text={text} image="" />;
                 })}
               </div>
             </div>
