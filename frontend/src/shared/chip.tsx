@@ -1,8 +1,20 @@
-import React from "react";
 import "./chip.scss";
 
-const Chip = ({ text }: { text: string }) => {
-  return <span className="chip">{text}</span>;
+const Chip = ({
+  text,
+  image,
+  variant = "advanced",
+}: {
+  text: string;
+  image: string;
+  variant?: "advanced" | "familiar";
+}) => {
+  return (
+    <div className={`chip ${variant}`}>
+      {image && <img src={`/icons/${image}`} alt="" />}
+      <div className="text">{text}</div>
+    </div>
+  );
 };
 
 export default Chip;

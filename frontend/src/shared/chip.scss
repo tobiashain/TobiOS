@@ -1,10 +1,50 @@
+:root {
+  --card: #1f2937;
+  --border: #374151;
+  --accent: #3b82f6;
+}
+
 .chip {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  margin: 2px;
-  background-color: #e0e0e0;
-  color: #333;
-  font-size: 0.875rem;
-  border-radius: 16px;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  transition: 0.2s;
+  color: white;
+
+  &:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  > img {
+    width: 25px;
+  }
+
+  &.advanced {
+    opacity: 1;
+  }
+
+  &.familiar {
+    opacity: 0.55;
+    border-style: dashed;
+
+    > img {
+      filter: saturate(0.4);
+    }
+
+    &:hover {
+      opacity: 1;
+      border-style: solid;
+      border-color: var(--accent);
+
+      > img {
+        filter: saturate(1);
+      }
+    }
+  }
 }
