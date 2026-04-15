@@ -71,8 +71,31 @@ export const projects: Project[] = [
       "Modular React components",
     ],
     images: [],
-    website: "https://example.com/",
-    sourceCode: "https://example.com/",
+    sourceCode: "https://github.com/tobiashain/TobiOS",
+  },
+  {
+    id: "portfolio",
+    title: "Portfolio Page",
+    subTitle: "Portfolio - Minimal Version",
+    context:
+      "This website you are currently viewing serves as the central hub for all past, present, and future projects. Its design draws inspiration from the Vinesauce website, featuring an operating system–style interface.",
+    chips: [
+      "React",
+      "JavaScript",
+      "TypeScript",
+      "Framer Motion",
+      "Sass",
+      "Github Actions",
+    ],
+    features: [
+      "Animations",
+      "Dynamic hero background",
+      "Responsive and smooth UI",
+      "Modular React components",
+    ],
+    images: [],
+    website: "https://tobiashain.github.io/",
+    sourceCode: "https://github.com/tobiashain/",
   },
   {
     id: "kitzEdu",
@@ -92,7 +115,7 @@ export const projects: Project[] = [
       "/TobiOS/pictures/kitz-edu/3.png",
       "/TobiOS/pictures/kitz-edu/4.png",
     ],
-    sourceCode: "https://example.com/",
+    sourceCode: "https://github.com/tobiashain/Kitz-Edu-2.0",
   },
   {
     id: "betterSpotify",
@@ -107,7 +130,7 @@ export const projects: Project[] = [
       "/TobiOS/pictures/better-spotify/2.png",
       "/TobiOS/pictures/better-spotify/3.png",
     ],
-    sourceCode: "https://example.com/",
+    sourceCode: "https://github.com/tobiashain/BetterSpotify",
   },
   {
     id: "odin",
@@ -140,8 +163,8 @@ export const projects: Project[] = [
       "/TobiOS/pictures/odin/3.png",
       "/TobiOS/pictures/odin/4.png",
     ],
-    website: "https://example.com/",
-    sourceCode: "https://example.com/",
+    website: "https://tobiashain.github.io/Odin-Project/",
+    sourceCode: "https://github.com/tobiashain/Odin-Project",
   },
   {
     id: "IMCMguide",
@@ -179,6 +202,7 @@ export const projects: Project[] = [
       "/TobiOS/pictures/untitledPlatformer/3.png",
       "/TobiOS/pictures/untitledPlatformer/4.png",
     ],
+    sourceCode: "https://github.com/tobiashain/Untitled-3D-Platformer",
   },
   {
     id: "unserLagerhaus",
@@ -192,6 +216,7 @@ export const projects: Project[] = [
       "/TobiOS/pictures/unserLagerhaus/2.png",
       "/TobiOS/pictures/unserLagerhaus/3.png",
     ],
+    sourceCode: "https://github.com/tobiashain/unserLagerhaus ",
   },
   {
     id: "minesweeper",
