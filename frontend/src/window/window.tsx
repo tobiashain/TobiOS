@@ -34,7 +34,10 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const position = useRef({ x: 0, y: 0 });
 
-  const { closeWindow, updateZIndex, windowRefs } = useWindowManager();
+  const { closeWindow, updateZIndex, windowRefs, focusedWindowId } =
+    useWindowManager();
+
+  const isFocused = focusedWindowId === windowId;
 
   const [isMaximized, setIsMaximized] = useState(size === "fullscreen");
 
@@ -45,8 +48,6 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     width: 500,
     height: 500,
   });
-
-  const [iframeOverlayActive, setIframeOverlayActive] = useState(true);
 
   const getTaskbarHeight = () => window.innerHeight * TASKBAR_RATIO;
 
@@ -124,7 +125,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   // Setup draggable/resizable (only when not maximized)
   useEffect(() => {
     const node = nodeRef.current;
-    if (node) updateZIndex(node);
+    if (node) updateZIndex(node, windowId);
 
     if (!node || isMaximized) return;
 
@@ -195,20 +196,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       draggable.unset();
       resizable.unset();
     };
-  }, [isMaximized]);
-
-  useEffect(() => {
-    const handleGlobalMouseDown = (e: MouseEvent) => {
-      const node = nodeRef.current;
-      if (node && !node.contains(e.target as Node)) {
-        setIframeOverlayActive(true);
-      }
-    };
-
-    document.addEventListener("mousedown", handleGlobalMouseDown);
-    return () =>
-      document.removeEventListener("mousedown", handleGlobalMouseDown);
-  }, []);
+  }, [isMaximized, windowId]);
 
   const minimizeWindow = () => {
     const node = nodeRef.current;
@@ -248,12 +236,12 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       setIsMaximized(false);
     }
 
-    updateZIndex(node);
+    updateZIndex(node, windowId);
   };
 
   return (
     <div
-      className={`window window--${windowId}`}
+      className={`window window--${windowId} ${isFocused ? "window--focused" : ""}`}
       ref={(el) => {
         nodeRef.current = el;
 
@@ -268,7 +256,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       }}
       onMouseDown={() => {
         const node = nodeRef.current;
-        if (node) updateZIndex(node);
+        if (node) updateZIndex(node, windowId);
       }}
     >
       {/* Resize handles – only when not maximized */}
@@ -324,22 +312,6 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       <div className="window__content">
         <div style={{ position: "relative", width: "100%", height: "100%" }}>
           {renderByType[type as WindowType]?.({ children, link, windowId })}
-
-          {iframeOverlayActive && (
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                zIndex: 1,
-                cursor: "default",
-              }}
-              onMouseDown={() => {
-                const node = nodeRef.current;
-                if (node) updateZIndex(node);
-                setIframeOverlayActive(false);
-              }}
-            />
-          )}
         </div>
       </div>
     </div>
