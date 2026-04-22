@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRectangleXmark } from "@fortawesome/free-regular-svg-icons/faRectangleXmark";
 import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
 import { faWindowMaximize } from "@fortawesome/free-regular-svg-icons";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 import { useWindowManager } from "../shared/WindowManagerContext";
 import { DesktopIcons } from "../desktop/desktopIcons";
 
@@ -35,12 +36,17 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
   const { closeWindow, updateZIndex, windowRefs } = useWindowManager();
 
-  const isFullscreen = size === "fullscreen";
+  const [isMaximized, setIsMaximized] = useState(size === "fullscreen");
+
+  const [prevSize, setPrevSize] = useState({ width: 500, height: 500 });
+  const [prevPos, setPrevPos] = useState({ x: 0, y: 0 });
 
   const [windowSize, setWindowSize] = useState({
     width: 500,
     height: 500,
   });
+
+  const [iframeOverlayActive, setIframeOverlayActive] = useState(true);
 
   const getTaskbarHeight = () => window.innerHeight * TASKBAR_RATIO;
 
@@ -73,15 +79,15 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     });
   };
 
+  // Initialize size/position based on size prop and isMaximized
   useLayoutEffect(() => {
     if (!nodeRef.current) return;
 
-    if (isFullscreen) {
+    if (isMaximized) {
       const height = window.innerHeight - getTaskbarHeight();
       const width = window.innerWidth;
 
       setWindowSize({ width, height });
-
       position.current = { x: 0, y: 0 };
 
       Object.assign(nodeRef.current.style, {
@@ -89,10 +95,10 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         height: `${height}px`,
         transform: `translate(0px, 0px)`,
       });
-
       return;
     }
 
+    // Not maximized – use size prop or default
     let width = 500;
     let height = 500;
 
@@ -113,16 +119,16 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     position.current = { x, y };
 
     nodeRef.current.style.transform = `translate(${x}px, ${y}px)`;
-  }, [size]);
+  }, [isMaximized, size]);
 
+  // Setup draggable/resizable (only when not maximized)
   useEffect(() => {
     const node = nodeRef.current;
     if (node) updateZIndex(node);
 
-    if (!node || isFullscreen) return;
+    if (!node || isMaximized) return;
 
     const header = node.querySelector(".window__header") as HTMLDivElement;
-
     if (!header) return;
 
     const draggable = interact(header).draggable({
@@ -165,7 +171,6 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         move(event) {
           let { x, y } = position.current;
 
-          // adjust position only for left/top resizing
           x += event.deltaRect.left;
           y += event.deltaRect.top;
 
@@ -190,7 +195,61 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       draggable.unset();
       resizable.unset();
     };
-  }, [isFullscreen]);
+  }, [isMaximized]);
+
+  useEffect(() => {
+    const handleGlobalMouseDown = (e: MouseEvent) => {
+      const node = nodeRef.current;
+      if (node && !node.contains(e.target as Node)) {
+        setIframeOverlayActive(true);
+      }
+    };
+
+    document.addEventListener("mousedown", handleGlobalMouseDown);
+    return () =>
+      document.removeEventListener("mousedown", handleGlobalMouseDown);
+  }, []);
+
+  const minimizeWindow = () => {
+    const node = nodeRef.current;
+    if (node) {
+      node.style.visibility = "hidden";
+    }
+  };
+
+  const toggleMaximize = () => {
+    if (size === "fullscreen") return;
+
+    const node = nodeRef.current;
+    if (!node) return;
+
+    if (!isMaximized) {
+      // Store current size and position before maximizing
+      const rect = node.getBoundingClientRect();
+      setPrevSize({ width: rect.width, height: rect.height });
+      setPrevPos({ x: position.current.x, y: position.current.y });
+
+      // Set to fullscreen
+      const width = window.innerWidth;
+      const height = window.innerHeight - getTaskbarHeight();
+      setWindowSize({ width, height });
+      position.current = { x: 0, y: 0 };
+      node.style.width = `${width}px`;
+      node.style.height = `${height}px`;
+      node.style.transform = `translate(0px, 0px)`;
+      setIsMaximized(true);
+    } else {
+      // Restore previous size and position
+      setWindowSize(prevSize);
+      position.current = prevPos;
+      node.style.width = `${prevSize.width}px`;
+      node.style.height = `${prevSize.height}px`;
+      node.style.transform = `translate(${prevPos.x}px, ${prevPos.y}px)`;
+      setIsMaximized(false);
+    }
+
+    updateZIndex(node);
+  };
 
   return (
     <div
@@ -212,7 +271,8 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         if (node) updateZIndex(node);
       }}
     >
-      {!isFullscreen && (
+      {/* Resize handles – only when not maximized */}
+      {!isMaximized && (
         <Fragment>
           <div className="window__resize-handle window__resize-handle--right"></div>
           <div className="window__resize-handle window__resize-handle--left"></div>
@@ -223,17 +283,26 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
       <div className="window__header">
         <div className="window__image">
-          <img src={icon} />
+          <img src={icon} alt="" />
         </div>
 
         <div className="window__title">{label}</div>
 
         <div className="window__buttons">
-          <div className="window__button">
+          <div className="window__button" onClick={minimizeWindow}>
             <FontAwesomeIcon icon={faWindowMinimize} size="lg" />
           </div>
-          <div className="window__button">
-            <FontAwesomeIcon icon={faWindowMaximize} size="lg" />
+          <div
+            className={`window__button ${size === "fullscreen" ? "window__button--disabled" : ""}`}
+            onClick={size === "fullscreen" ? undefined : toggleMaximize}
+            style={{
+              cursor: size === "fullscreen" ? "not-allowed" : "pointer",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={isMaximized ? faWindowRestore : faWindowMaximize}
+              size="lg"
+            />
           </div>
           <div className="window__button" onClick={() => closeWindow(windowId)}>
             <FontAwesomeIcon icon={faRectangleXmark} size="lg" />
@@ -253,7 +322,25 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       )}
 
       <div className="window__content">
-        {renderByType[type as WindowType]?.({ children, link, windowId })}
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+          {renderByType[type as WindowType]?.({ children, link, windowId })}
+
+          {iframeOverlayActive && (
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: 1,
+                cursor: "default",
+              }}
+              onMouseDown={() => {
+                const node = nodeRef.current;
+                if (node) updateZIndex(node);
+                setIframeOverlayActive(false);
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

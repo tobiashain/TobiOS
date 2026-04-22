@@ -17,10 +17,17 @@ export default function TaskbarItem(props: TaskbarItem) {
           const el = windowRefs.current[windowId];
           if (!el) return;
 
-          el.style.visibility =
-            el.style.visibility === "hidden" ? "visible" : "hidden";
+          const isMinimized = el.style.visibility === "hidden";
 
-          updateZIndex(el);
+          if (isMinimized) {
+            el.style.visibility = "visible";
+            updateZIndex(el);
+          } else {
+            const wasFocused = !updateZIndex(el);
+            if (wasFocused) {
+              el.style.visibility = "hidden";
+            }
+          }
         }}
       >
         <div className="taskbar-item__icon">
