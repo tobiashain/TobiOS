@@ -24,6 +24,11 @@ $handle-size: 8px;
     box-shadow: none;
   }
 
+  &--focused {
+    outline: 2px solid var(--secondary);
+    outline-offset: -1px;
+  }
+
   &__header {
     height: 40px;
     background-color: var(--primary);

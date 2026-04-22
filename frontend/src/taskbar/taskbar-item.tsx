@@ -21,9 +21,9 @@ export default function TaskbarItem(props: TaskbarItem) {
 
           if (isMinimized) {
             el.style.visibility = "visible";
-            updateZIndex(el);
+            updateZIndex(el, windowId);
           } else {
-            const wasFocused = !updateZIndex(el);
+            const wasFocused = !updateZIndex(el, windowId);
             if (wasFocused) {
               el.style.visibility = "hidden";
             }
