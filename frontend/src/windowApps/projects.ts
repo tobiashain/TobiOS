@@ -14,9 +14,9 @@ export const projects: Project[] = [
   {
     id: "simplefeedback",
     title: "Simplefeedback",
-    subTitle: "Customer-Relationship-Management Platform",
+    subTitle: "Customer Relationship Management Platform",
     context:
-      "This project is part of a collaborative effort and remains a work in progress. Its goal is to create a CRM website that enables the tourism industry to efficiently collect and analyze customer feedback, while maintaining communication through an integrated email bot and HTML newsletter builder.",
+      "Simplefeedback is a collaborative, ongoing project focused on building a CRM platform for the tourism industry. The goal is to help businesses collect, manage, and understand customer feedback in a structured way. In addition to analytics, the platform includes tools for communication, such as an automated email bot and a customizable HTML newsletter builder. The project emphasizes usability, scalability, and integration with modern web services.",
     chips: [
       "React",
       "JavaScript",
@@ -32,11 +32,11 @@ export const projects: Project[] = [
       "Google OAuth 2.0",
     ],
     features: [
-      "Create Surveys",
-      "Stripe payment processing integration",
-      "Data visualization via Diagrams",
-      "HTML Email Builder",
-      "Send Newsletters",
+      "Survey creation and management",
+      "Integrated Stripe payment processing",
+      "Data visualization with charts and diagrams",
+      "Custom HTML email builder",
+      "Newsletter creation and distribution",
     ],
     images: [
       "/TobiOS/pictures/simplefeedback/1.png",
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     title: "TobiOS",
     subTitle: "Personal Website and Portfolio",
     context:
-      "This website you are currently viewing serves as the central hub for all past, present, and future projects. Its design draws inspiration from the Vinesauce website, featuring an operating system–style interface.",
+      "TobiOS is my main portfolio website and a place where I present my projects and experiments. The interface is inspired by desktop operating systems, allowing users to interact with windows, icons, and a taskbar. The focus of this project is on creating a playful but functional user experience while keeping the codebase modular and maintainable.",
     chips: [
       "React",
       "JavaScript",
@@ -62,13 +62,13 @@ export const projects: Project[] = [
       "Cloudflare Workers",
     ],
     features: [
-      "Open, move, and resize windows",
-      "Interactive desktop icons",
-      "Taskbar window management",
-      "Mini-games on the desktop",
+      "Draggable and resizable windows",
+      "Interactive desktop-style icons",
+      "Taskbar-based window management",
+      "Built-in mini games",
       "Cloudflare Workers API integration",
-      "Responsive and smooth UI",
-      "Modular React components",
+      "Responsive and smooth user interface",
+      "Modular component architecture",
     ],
     images: [],
     sourceCode: "https://github.com/tobiashain/TobiOS",
@@ -76,9 +76,9 @@ export const projects: Project[] = [
   {
     id: "portfolio",
     title: "Portfolio Page",
-    subTitle: "Portfolio - Minimal Version",
+    subTitle: "Minimal Portfolio Version",
     context:
-      "This website you are currently viewing serves as the central hub for all past, present, and future projects. Its design draws inspiration from the Vinesauce website, featuring an operating system–style interface.",
+      "This is a simplified version of my portfolio, designed with a more traditional layout. It focuses on clean presentation, smooth animations, and quick access to projects. Compared to TobiOS, this version removes the desktop-style interface and prioritizes clarity and performance.",
     chips: [
       "React",
       "JavaScript",
@@ -88,10 +88,10 @@ export const projects: Project[] = [
       "Github Actions",
     ],
     features: [
-      "Animations",
-      "Dynamic hero background",
-      "Responsive and smooth UI",
-      "Modular React components",
+      "Smooth UI animations",
+      "Dynamic hero section",
+      "Responsive layout",
+      "Reusable and modular components",
     ],
     images: [],
     website: "https://tobiashain.github.io/",
@@ -102,12 +102,12 @@ export const projects: Project[] = [
     title: "Kitz-Edu@2.0",
     subTitle: "Association for Innovative Educational Projects",
     context:
-      "This project was developed as part of the diploma thesis. The function of this project is to give informations about the associations, their values and contact options.",
+      "Kitz-Edu@2.0 was developed as part of my diploma thesis. The project is a website for an educational association, providing clear information about its mission, values, and activities. It also includes contact options and a content management system to make updates easy for non-technical users.",
     chips: ["Next.js", "Strapi", "JavaScript", "Sass", "Figma"],
     features: [
-      "Server Side Rendering (SSR)",
-      "Headless Content Management System (Strapi)",
-      "Video Hero Section",
+      "Server-side rendering (SSR) for performance and SEO",
+      "Headless CMS integration with Strapi",
+      "Video-based hero section",
     ],
     images: [
       "/TobiOS/pictures/kitz-edu/1.png",
@@ -120,11 +120,15 @@ export const projects: Project[] = [
   {
     id: "betterSpotify",
     title: "Better Spotify",
-    subTitle: "",
+    subTitle: "Music Platform Experiment",
     context:
-      "This project is part of a school year project and we were allowed to develop what we wanted. ",
+      "Better Spotify was created as part of a school project where the goal was to build an application of our choice. This project explores the Spotify API by extending basic functionality with a custom interface and additional features. It served as a practical introduction to working with external APIs and backend-driven web applications.",
     chips: ["ASP.Net MVC", "C#", "JavaScript", "TailwindCSS", "Spotify API"],
-    features: [],
+    features: [
+      "Integration with Spotify API",
+      "Custom UI for browsing music",
+      "Backend-driven application structure",
+    ],
     images: [
       "/TobiOS/pictures/better-spotify/1.png",
       "/TobiOS/pictures/better-spotify/2.png",
@@ -137,7 +141,7 @@ export const projects: Project[] = [
     title: "The Odin Project",
     subTitle: "Full Stack Curriculum",
     context:
-      "The Odin Project is a free, open-source curriculum that teaches full-stack web development through structured lessons and hands-on projects. It focuses on practical skills such as HTML, CSS, JavaScript, React, Git, and backend technologies while guiding learners to build real applications and use developer tools.",
+      "This section documents my progress through The Odin Project, an open-source full-stack curriculum. It focuses on building practical skills through hands-on projects, covering both frontend and backend development. The work includes a range of applications and exercises that reflect a structured learning path in modern web development.",
     chips: [
       "JavaScript",
       "TypeScript",
@@ -149,13 +153,13 @@ export const projects: Project[] = [
       "Webpack",
     ],
     features: [
-      "Advanced HTML, CSS and JavaScript",
-      "Test Driven Development",
-      "Algorithms and Recursions",
-      "Linked Lists, HashMaps, Binary Search Trees, Queues",
-      "React Course",
-      "Database Course",
-      "NodeJS Course",
+      "Advanced HTML, CSS, and JavaScript concepts",
+      "Test-driven development (TDD)",
+      "Algorithms and recursion",
+      "Data structures (linked lists, hash maps, trees, queues)",
+      "React development",
+      "Database fundamentals",
+      "Backend development with Node.js",
     ],
     images: [
       "/TobiOS/pictures/odin/1.png",

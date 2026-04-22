@@ -13,7 +13,7 @@ export default function DesktopIcon(props: DesktopIcons) {
         className="desktop-icons"
         onClick={() => {
           if (type === "link" && link) {
-            open(link, "_blank");
+            open(link, "_blank", "noopener noreferrer");
           } else if (type === "wired") {
             setShowVideo(true);
           } else {

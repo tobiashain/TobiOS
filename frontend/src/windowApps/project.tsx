@@ -36,7 +36,7 @@ export default function Project({ windowId }: { windowId: string }) {
           </section>
           <section>
             <h3>Key Features</h3>
-            <ul className="window-project_features">
+            <ul className="window-project__features">
               {project.features.map((feature, index) => {
                 return (
                   <li key={index} className="window-project__feature">
@@ -48,12 +48,20 @@ export default function Project({ windowId }: { windowId: string }) {
           </section>
           <div className="window-project__buttons">
             {project.website && (
-              <a href={project.website} target="_blank">
+              <a
+                href={project.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <button>Live Preview</button>
               </a>
             )}
             {project.sourceCode && (
-              <a href={project.sourceCode} target="_blank">
+              <a
+                href={project.sourceCode}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <button>Source Code</button>
               </a>
             )}
