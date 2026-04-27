@@ -53,7 +53,7 @@ export default function Project({ windowId }: { windowId: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button>Live Preview</button>
+                Live Preview
               </a>
             )}
             {project.sourceCode && (
@@ -62,7 +62,7 @@ export default function Project({ windowId }: { windowId: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button>Source Code</button>
+                Source Code
               </a>
             )}
           </div>

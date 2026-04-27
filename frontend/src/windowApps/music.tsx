@@ -43,12 +43,14 @@ export default function MusicApp() {
             <div className="music__section" key={artist.name + index}>
               <div
                 className="music__artist-card"
-                onClick={() => open(artist.url, "_blank")}
+                onClick={() =>
+                  open(artist.url, "_blank", "noopener noreferrer")
+                }
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
-                    open(artist.url, "_blank");
+                    open(artist.url, "_blank", "noopener noreferrer");
                   }
                 }}
               >
@@ -94,12 +96,14 @@ export default function MusicApp() {
                       <div
                         className="music__track-card"
                         key={track.name + tIndex}
-                        onClick={() => open(track.url, "_blank")}
+                        onClick={() =>
+                          open(track.url, "_blank", "noopener noreferrer")
+                        }
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => {
                           if (e.key === "Enter" || e.key === " ") {
-                            open(track.url, "_blank");
+                            open(track.url, "_blank", "noopener noreferrer");
                           }
                         }}
                       >

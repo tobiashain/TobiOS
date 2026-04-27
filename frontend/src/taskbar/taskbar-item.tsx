@@ -29,6 +29,8 @@ export default function TaskbarItem(props: TaskbarItem) {
             }
           }
         }}
+        role="button"
+        tabIndex={0}
       >
         <div className="taskbar-item__icon">
           <img src={icon} />

@@ -20,6 +20,8 @@ export default function DesktopIcon(props: DesktopIcons) {
             openWindow(props);
           }
         }}
+        role="button"
+        tabIndex={0}
       >
         <div className="desktop-icons__icon">
           <img src={icon} alt={label} />

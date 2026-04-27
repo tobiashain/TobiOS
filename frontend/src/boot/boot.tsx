@@ -72,7 +72,12 @@ export default function Boot({ onFinish }: BootProps) {
         <div className="boot-login">
           <div className="boot-login__time">{time}</div>
 
-          <div className="boot-login__user" onClick={handleSignIn}>
+          <div
+            className="boot-login__user"
+            onClick={handleSignIn}
+            role="button"
+            tabIndex={0}
+          >
             <div className="boot-login__avatar">
               <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="32" cy="24" r="14" fill="rgba(255,255,255,0.85)" />
