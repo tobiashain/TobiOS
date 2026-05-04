@@ -13,6 +13,12 @@
   z-index: 100;
 }
 
+@media (max-width: 768px) {
+  .taskbar {
+    display: none;
+  }
+}
+
 .taskbar-os-button {
   flex: 0 0 100px;
   border: none;

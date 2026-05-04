@@ -46,6 +46,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .desktop {
+    height: 100%;
+  }
+}
+
 .desktop-icons {
   width: auto;
   height: auto;

@@ -300,6 +300,18 @@
   @container (max-width: 550px) {
     padding: 0.8rem;
 
+    .music__header {
+      margin-bottom: 1.2rem;
+    }
+
+    .music__artists-grid {
+      gap: 1.2rem;
+    }
+
+    .music__section {
+      border-radius: 1rem;
+    }
+
     .music__artist-card {
       flex-direction: column;
       align-items: center;
@@ -326,6 +338,12 @@
 
     .music__tracks-section {
       padding: 0 1rem 1rem 1rem;
+    }
+  }
+
+  @container (max-width: 380px) {
+    .music__tracks-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 

@@ -27,6 +27,7 @@ interface WindowProps {
 }
 
 const TASKBAR_RATIO = 0.05;
+const MOBILE_BREAKPOINT = 768;
 
 const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   const { windowId, label, icon, type, children, link, size } = props;
@@ -49,7 +50,28 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     height: 500,
   });
 
-  const getTaskbarHeight = () => window.innerHeight * TASKBAR_RATIO;
+  const [viewportSize, setViewportSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const isMobile = viewportSize.width <= MOBILE_BREAKPOINT;
+  const isFullscreen = isMaximized || isMobile;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getTaskbarHeight = () =>
+    isMobile ? 0 : window.innerHeight * TASKBAR_RATIO;
 
   const clampToViewport = (node: HTMLElement, x: number, y: number) => {
     node.style.transform = `translate(${x}px, ${y}px)`;
@@ -80,11 +102,11 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     });
   };
 
-  // Initialize size/position based on size prop and isMaximized
+  // Initialize size/position based on size prop and fullscreen state
   useLayoutEffect(() => {
     if (!nodeRef.current) return;
 
-    if (isMaximized) {
+    if (isFullscreen) {
       const height = window.innerHeight - getTaskbarHeight();
       const width = window.innerWidth;
 
@@ -120,14 +142,14 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     position.current = { x, y };
 
     nodeRef.current.style.transform = `translate(${x}px, ${y}px)`;
-  }, [isMaximized, size]);
+  }, [isFullscreen, size, viewportSize]);
 
-  // Setup draggable/resizable (only when not maximized)
+  // Setup draggable/resizable (only when not fullscreen)
   useEffect(() => {
     const node = nodeRef.current;
     if (node) updateZIndex(node, windowId);
 
-    if (!node || isMaximized) return;
+    if (!node || isFullscreen) return;
 
     const header = node.querySelector(".window__header") as HTMLDivElement;
     if (!header) return;
@@ -196,9 +218,11 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       draggable.unset();
       resizable.unset();
     };
-  }, [isMaximized, windowId]);
+  }, [isFullscreen, windowId]);
 
   const minimizeWindow = () => {
+    if (isMobile) return;
+
     const node = nodeRef.current;
     if (node) {
       node.style.visibility = "hidden";
@@ -206,6 +230,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
   };
 
   const toggleMaximize = () => {
+    if (isMobile) return;
     if (size === "fullscreen") return;
 
     const node = nodeRef.current;
@@ -241,7 +266,7 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
   return (
     <div
-      className={`window window--${windowId} ${isFocused ? "window--focused" : ""}`}
+      className={`window window--${windowId} ${isFocused ? "window--focused" : ""} ${isFullscreen ? "window--fullscreen" : ""}`}
       ref={(el) => {
         nodeRef.current = el;
 
@@ -259,8 +284,8 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         if (node) updateZIndex(node, windowId);
       }}
     >
-      {/* Resize handles – only when not maximized */}
-      {!isMaximized && (
+      {/* Resize handles – only when not fullscreen */}
+      {!isFullscreen && (
         <Fragment>
           <div className="window__resize-handle window__resize-handle--right"></div>
           <div className="window__resize-handle window__resize-handle--left"></div>
@@ -277,21 +302,25 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
         <div className="window__title">{label}</div>
 
         <div className="window__buttons">
-          <div className="window__button" onClick={minimizeWindow}>
-            <FontAwesomeIcon icon={faWindowMinimize} size="lg" />
-          </div>
-          <div
-            className={`window__button ${size === "fullscreen" ? "window__button--disabled" : ""}`}
-            onClick={size === "fullscreen" ? undefined : toggleMaximize}
-            style={{
-              cursor: size === "fullscreen" ? "not-allowed" : "pointer",
-            }}
-          >
-            <FontAwesomeIcon
-              icon={isMaximized ? faWindowRestore : faWindowMaximize}
-              size="lg"
-            />
-          </div>
+          {!isMobile && (
+            <>
+              <div className="window__button" onClick={minimizeWindow}>
+                <FontAwesomeIcon icon={faWindowMinimize} size="lg" />
+              </div>
+              <div
+                className={`window__button ${size === "fullscreen" ? "window__button--disabled" : ""}`}
+                onClick={size === "fullscreen" ? undefined : toggleMaximize}
+                style={{
+                  cursor: size === "fullscreen" ? "not-allowed" : "pointer",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={isMaximized ? faWindowRestore : faWindowMaximize}
+                  size="lg"
+                />
+              </div>
+            </>
+          )}
           <div className="window__button" onClick={() => closeWindow(windowId)}>
             <FontAwesomeIcon icon={faRectangleXmark} size="lg" />
           </div>

@@ -93,6 +93,23 @@
   }
 }
 
+@media (max-width: 768px) {
+  .image-grid {
+    max-width: min(100%, 420px);
+    gap: 6px;
+
+    &__item,
+    &__modal-image {
+      border-radius: 0.6rem;
+    }
+
+    &__modal-image {
+      max-width: calc(100% - 1.5rem);
+      max-height: calc(100% - 1.5rem);
+    }
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
