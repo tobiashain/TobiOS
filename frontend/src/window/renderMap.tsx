@@ -3,8 +3,15 @@ import MusicApp from "../windowApps/music.tsx";
 import { JSX } from "react/jsx-runtime";
 import { DesktopIcons } from "../desktop/desktopIcons.ts";
 import Project from "../windowApps/project.tsx";
+import Readme from "../windowApps/readme.tsx";
 
-export type WindowType = "folder" | "video" | "iframe" | "music" | "project";
+export type WindowType =
+  | "folder"
+  | "video"
+  | "iframe"
+  | "music"
+  | "project"
+  | "readme";
 
 export interface RenderProps {
   children?: any;
@@ -52,4 +59,5 @@ export const renderByType: Record<
   ),
   project: (props) => <Project windowId={props.windowId ?? ""} />,
   music: () => <MusicApp />,
+  readme: () => <Readme />,
 };

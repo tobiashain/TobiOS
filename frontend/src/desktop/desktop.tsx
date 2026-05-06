@@ -9,9 +9,18 @@ import DevWatermark from "./dev-watermark";
 
 export default function Desktop() {
   const { windows, windowRefs } = useWindowManager();
+  const { openWindow } = useWindowManager();
 
   useEffect(() => {
     preloadVideo("lain.mp4");
+
+    openWindow({
+      id: "readme",
+      type: "readme",
+      label: "README.txt",
+      icon: "icons/readme.png",
+      size: "900x800",
+    });
   }, []);
   return (
     <>

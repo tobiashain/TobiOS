@@ -12,6 +12,23 @@ export default function OS() {
 
   const iconsUrls = getAllIconUrls(desktopIcons);
   preloadImages(iconsUrls);
+  const techUrls = [
+    "icons/tech/csharp.png",
+    "icons/tech/docker.png",
+    "icons/tech/git.png",
+    "icons/tech/github.png",
+    "icons/tech/godot.png",
+    "icons/tech/javascript.png",
+    "icons/tech/mysql.png",
+    "icons/tech/nestjs.png",
+    "icons/tech/php.png",
+    "icons/tech/react.png",
+    "icons/tech/sass.png",
+    "icons/tech/tailwindcss.png",
+    "icons/tech/typescript.png",
+    "icons/tech/wordpress.png",
+  ];
+  preloadImages(techUrls);
 
   const handleBootFinish = () => {
     setBootUp(false);

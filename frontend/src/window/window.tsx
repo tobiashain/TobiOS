@@ -109,10 +109,8 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
     if (isFullscreen) {
       const height = window.innerHeight - getTaskbarHeight();
       const width = window.innerWidth;
-
       setWindowSize({ width, height });
       position.current = { x: 0, y: 0 };
-
       Object.assign(nodeRef.current.style, {
         width: `${width}px`,
         height: `${height}px`,
@@ -121,10 +119,9 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
       return;
     }
 
-    // Not maximized – use size prop or default
+    // Not fullscreen – size from prop or default
     let width = 500;
     let height = 500;
-
     if (size && size.includes("x")) {
       const [w, h] = size.split("x");
       width = Number(w);
@@ -133,16 +130,87 @@ const Window = React.forwardRef<HTMLDivElement, WindowProps>((props, ref) => {
 
     setWindowSize({ width, height });
 
+    const taskbarHeight = getTaskbarHeight();
     const maxX = window.innerWidth - width;
-    const maxY = window.innerHeight - height - getTaskbarHeight();
+    const maxY = window.innerHeight - height - taskbarHeight;
 
-    const x = Math.floor(Math.random() * Math.max(0, maxX));
-    const y = Math.floor(Math.random() * Math.max(0, maxY));
+    let x: number;
+    let y: number;
+
+    if (windowId === "readme") {
+      // place on right side, 20px from top and right edge
+      x = Math.max(0, maxX - 20);
+      y = 20;
+    } else {
+      x = Math.floor(Math.random() * Math.max(0, maxX));
+      y = Math.floor(Math.random() * Math.max(0, maxY));
+    }
 
     position.current = { x, y };
-
     nodeRef.current.style.transform = `translate(${x}px, ${y}px)`;
-  }, [isFullscreen, size, viewportSize]);
+  }, []);
+
+  // Keep fullscreen window in sync with viewport changes
+  useEffect(() => {
+    if (!isFullscreen || !nodeRef.current) return;
+
+    const height = window.innerHeight - getTaskbarHeight();
+    const width = window.innerWidth;
+
+    setWindowSize({ width, height });
+    position.current = { x: 0, y: 0 };
+
+    Object.assign(nodeRef.current.style, {
+      width: `${width}px`,
+      height: `${height}px`,
+      transform: `translate(0px, 0px)`,
+    });
+  }, [isFullscreen, viewportSize]);
+
+  // Keep window inside viewport when browser resizes (windowed mode) – no DOM read
+  useEffect(() => {
+    if (isFullscreen || !nodeRef.current) return;
+
+    const maxWidth = window.innerWidth;
+    // Height must not overlap the taskbar
+    const maxHeight = window.innerHeight - getTaskbarHeight();
+
+    let newWidth = windowSize.width;
+    let newHeight = windowSize.height;
+    let sizeChanged = false;
+
+    if (newWidth > maxWidth) {
+      newWidth = maxWidth;
+      sizeChanged = true;
+    }
+    if (newHeight > maxHeight) {
+      newHeight = maxHeight;
+      sizeChanged = true;
+    }
+
+    let newX = position.current.x;
+    let newY = position.current.y;
+
+    // Clamp position using the intended new size, not DOM rects
+    if (newX + newWidth > window.innerWidth)
+      newX = window.innerWidth - newWidth;
+    if (newY + newHeight > window.innerHeight)
+      newY = window.innerHeight - newHeight;
+    if (newX < 0) newX = 0;
+    if (newY < 0) newY = 0;
+
+    const posChanged =
+      newX !== position.current.x || newY !== position.current.y;
+
+    if (sizeChanged || posChanged) {
+      setWindowSize({ width: newWidth, height: newHeight });
+      position.current = { x: newX, y: newY };
+      // Apply immediately so the window doesn’t flash at the old size
+      nodeRef.current.style.width = `${newWidth}px`;
+      nodeRef.current.style.height = `${newHeight}px`;
+      nodeRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+    }
+  }, [viewportSize, isFullscreen]);
 
   // Setup draggable/resizable (only when not fullscreen)
   useEffect(() => {
