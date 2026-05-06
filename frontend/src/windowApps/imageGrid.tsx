@@ -40,7 +40,6 @@ export default function ImageGrid({ images }: { images: string[] }) {
             src={selected}
             alt="Fullscreen"
             className="image-grid__modal-image"
-            onClick={(e) => e.stopPropagation()}
           />
         </div>
       )}
