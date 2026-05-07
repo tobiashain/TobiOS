@@ -10,6 +10,8 @@ import {
   faUser,
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { useWindowManager } from "../shared/WindowManagerContext";
+import { desktopIcons } from "../desktop/desktopIcons";
 
 const advanced = [
   { text: "Javascript", image: "javascript.png" },
@@ -32,6 +34,7 @@ const basic = [
 ];
 
 export default function Readme() {
+  const { openWindow } = useWindowManager();
   return (
     <div className="readme">
       <motion.div
@@ -47,7 +50,7 @@ export default function Readme() {
           <div>
             <h1 className="readme__title">README.txt</h1>
             <p className="readme__meta">
-              Last updated: 2026‑06‑05 &nbsp;·&nbsp; TobiOS v2.1
+              Last updated: 2026‑06‑05 &nbsp;·&nbsp; TobiOS v1.0
             </p>
           </div>
         </header>
@@ -64,9 +67,9 @@ export default function Readme() {
             mockup: everything is real, written in React, TypeScript, and SCSS.
           </p>
           <p>
-            Use the desktop icons to explore projects, peek into my career
-            timeline, or check out the skills that power these windows. The OS
-            itself is one of my proudest projects.
+            Use the desktop icons to explore projects, tools and games, or check
+            out the skills that power these windows. The OS itself is one of my
+            proudest projects.
           </p>
         </section>
         <section className="readme__section">
@@ -76,8 +79,10 @@ export default function Readme() {
           </h2>
           <ul className="readme__list">
             <li>
-              <strong>Simplefeedback</strong> – Full‑stack feedback tool with a
-              minimal mode and an immersive OS‑style showcase.
+              <strong>Simplefeedback</strong> A collaborative, ongoing project
+              focused on building a CRM platform for the tourism industry. The
+              goal is to help businesses collect, manage, and understand
+              customer feedback in a structured way.
             </li>
             <li>
               <strong>Skyfallow</strong> – Farming simulator built in Godot
@@ -167,24 +172,28 @@ export default function Readme() {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                // tell the OS to open a specific window – implement this via your WindowManager
-                console.log("Open Career window");
+                const projects = desktopIcons.find(
+                  (icon) => icon.id === "projects",
+                );
+                if (projects) openWindow(projects);
               }}
               className="readme__link"
             >
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Career
-              Timeline
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Projects
             </a>
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                console.log("Open Skills window");
+                const portfolio = desktopIcons.find(
+                  (icon) => icon.id === "portfolio",
+                );
+                if (portfolio) openWindow(portfolio);
               }}
               className="readme__link"
             >
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Tech Stack
-              Details
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Minimal
+              version portfolio
             </a>
             <a
               href="https://github.com/tobiashain"
@@ -193,6 +202,14 @@ export default function Readme() {
               className="readme__link"
             >
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> GitHub
+            </a>
+            <a
+              href="mailto:hain.tobias@outlook.at"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="readme__link"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Email
             </a>
           </div>
         </section>

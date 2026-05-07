@@ -14,13 +14,8 @@ export default function Desktop() {
   useEffect(() => {
     preloadVideo("lain.mp4");
 
-    openWindow({
-      id: "readme",
-      type: "readme",
-      label: "README.txt",
-      icon: "icons/readme.png",
-      size: "900x800",
-    });
+    const readmeIcon = desktopIcons.find((icon) => icon.id === "readme");
+    if (readmeIcon) openWindow(readmeIcon);
   }, []);
   return (
     <>

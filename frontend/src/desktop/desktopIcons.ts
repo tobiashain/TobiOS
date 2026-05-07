@@ -59,20 +59,20 @@ export const desktopIcons: DesktopIcons[] = [
             label: "Smaller Projects",
             icon: "icons/folder.png",
             children: [
-              {
+              /*{
                 id: "IMCMguide",
                 type: "project",
                 label: "IMCM Guide",
                 icon: "icons/guidebook.png",
                 size: "fullscreen",
-              },
+              },*/
               {
                 id: "libraryProject",
                 type: "iframe",
                 label: "Library",
                 icon: "icons/bookshelf.png",
                 link: "https://tobiashain.github.io/Odin-Project/Library/",
-                size: "800x800",
+                size: "900x800",
               },
               {
                 id: "battleShipProject",
@@ -163,23 +163,23 @@ export const desktopIcons: DesktopIcons[] = [
     link: "https://github.com/tobiashain",
   },
   {
-    id: "contact",
+    id: "email",
     type: "link",
-    label: "Contact",
-    icon: "https://picsum.photos/60/60",
+    label: "Email",
+    icon: "icons/email.png",
     link: "mailto:hain.tobias@outlook.at",
   },
   {
     id: "wired",
     type: "wired",
     label: "The Wired",
-    icon: "https://picsum.photos/60/60",
+    icon: "icons/wired.png",
   },
   {
     id: "lain",
     type: "video",
     label: "Let's All Love Lain",
-    icon: "https://picsum.photos/60/60",
+    icon: "icons/loveLain.png",
     link: "T0xCK6J1ics",
   },
   {
@@ -236,7 +236,7 @@ export const desktopIcons: DesktopIcons[] = [
     label: "Library",
     icon: "icons/bookshelf.png",
     link: "https://tobiashain.github.io/Odin-Project/Library/",
-    size: "800x900",
+    size: "900x800",
   },
   {
     id: "weather",
