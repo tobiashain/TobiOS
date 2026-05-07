@@ -70,7 +70,12 @@ export const projects: Project[] = [
       "Responsive and smooth user interface",
       "Modular component architecture",
     ],
-    images: [],
+    images: [
+      "pictures/tobiOS/1.png",
+      "pictures/tobiOS/2.png",
+      "pictures/tobiOS/3.png",
+      "pictures/tobiOS/4.png",
+    ],
     sourceCode: "https://github.com/tobiashain/TobiOS",
   },
   {
@@ -93,7 +98,12 @@ export const projects: Project[] = [
       "Responsive layout",
       "Reusable and modular components",
     ],
-    images: [],
+    images: [
+      "pictures/portfolio/1.png",
+      "pictures/portfolio/2.png",
+      "pictures/portfolio/3.png",
+      "pictures/portfolio/4.png",
+    ],
     website: "https://tobiashain.github.io/",
     sourceCode: "https://github.com/tobiashain/tobiashain.github.io",
   },
@@ -248,6 +258,6 @@ export const projects: Project[] = [
     context: "",
     chips: ["C#", "Raylib"],
     features: [],
-    images: [],
+    images: ["pictures/snake/1.png", "pictures/snake/2.png"],
   },
 ];
