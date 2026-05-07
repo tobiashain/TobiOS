@@ -180,7 +180,7 @@ export const projects: Project[] = [
     website: "https://tobiashain.github.io/Odin-Project/",
     sourceCode: "https://github.com/tobiashain/Odin-Project",
   },
-  {
+  /*{
     id: "IMCMguide",
     title: "",
     subTitle: "",
@@ -188,7 +188,7 @@ export const projects: Project[] = [
     chips: ["PHP", "JavaScript", "CSS"],
     features: [],
     images: [],
-  },
+  },*/
   {
     id: "skyfallow",
     title: "Skyfallow",
@@ -213,9 +213,10 @@ export const projects: Project[] = [
     id: "untitledPlatformer",
     title: "Untitled 3D Platformer",
     subTitle: "A Titanfall 2 inspired Movement Prototype",
-    context: "",
+    context:
+      "This is a finished small prototype inspired by Titanfall 2's movement system, created as a two-person school project in 2023. Working on this prototype was my first real experience with the Unity Game Engine, as well as my first attempt at developing a larger-scale game beyond simple tutorials. The prototype focuses on replicating core movement mechanics such as wall-running, sliding, and double jumping, aiming to capture the fluid, high-speed feel of Titanfall 2. Despite being a small-scale project, it taught me a lot about game feel, player controller design, and collaborating with a teammate to bring a cohesive vision to life.",
     chips: ["Unity", "C#"],
-    features: [],
+    features: ["Home Menu", "Multiple Levels", "Grappling Hook", "Wallrunning"],
     images: [
       "pictures/untitledPlatformer/1.png",
       "pictures/untitledPlatformer/2.png",
@@ -226,11 +227,12 @@ export const projects: Project[] = [
   },
   {
     id: "unserLagerhaus",
-    title: "",
-    subTitle: "",
-    context: "",
+    title: "Unser Lagerhaus",
+    subTitle: "CRUD Management Tool",
+    context:
+      "This was another two-person school project from 2023, this time focused on building a Windows Forms application that serves as a SQL database CRUD management tool. It was my first experience working directly with SQL databases in a practical, user-facing application. The tool allows users to Create, Read, Update, and Delete records through a simple GUI, with all data persistently stored in a backend SQL database. Working on this project gave me valuable hands-on exposure to SQL queries, data binding, event-driven UI design, and the full workflow of building a functional desktop data management system.",
     chips: ["C#", "MySQL", "Windows Forms"],
-    features: [],
+    features: ["Login", "CRUD Editor", "CSV import and export"],
     images: [
       "pictures/unserLagerhaus/1.png",
       "pictures/unserLagerhaus/2.png",
@@ -240,11 +242,16 @@ export const projects: Project[] = [
   },
   {
     id: "minesweeper",
-    title: "",
-    subTitle: "",
-    context: "",
+    title: "Minesweeper",
+    subTitle: "First Programming Project",
+    context:
+      "A simple solo project I built was a Windows Forms Minesweeper game. This was my very first project overall, the first piece of software I ever created from the ground up entirely on my own. The game implements the classic Minesweeper mechanics: a grid of hidden cells, randomly placed mines, left clicks to reveal cells, right clicks to place flags, and automatic win and loss detection. Developing this project taught me fundamental programming concepts like working with 2D arrays, handling mouse events, implementing recursive flood fill to reveal empty cells, and managing game state. It was also my first real experience with debugging a complete interactive application and seeing it through to a polished, playable state. This Minesweeper game remains a meaningful milestone as the true starting point of my programming journey.",
     chips: ["C#", "Windows Forms"],
-    features: [],
+    features: [
+      "Fully playable",
+      "Settings to change the game",
+      "Read-Write Leaderboard",
+    ],
     images: [
       "pictures/minesweeper/1.png",
       "pictures/minesweeper/2.png",
@@ -253,11 +260,12 @@ export const projects: Project[] = [
   },
   {
     id: "snake",
-    title: "",
-    subTitle: "",
-    context: "",
+    title: "Snake",
+    subTitle: "First Game-Engine Game",
+    context:
+      "A small solo project I built was a Snake game using C# and Raylib. This was my first experience working with anything resembling a game engine or framework, as Raylib handled rendering, input, and timing in a way that felt much closer to a real game development environment than my previous Windows Forms projects. I implemented the classic Snake mechanics: a snake that grows longer when eating food, movement in four directions, collision detection with the walls or its own body leading to game over, and a score counter. This project taught me how to structure game loops, update game state based on delta time, handle real time keyboard input, and manage simple game objects like segments and food spawns. Moving from the event driven logic of Minesweeper to a continuous game loop with Raylib was a significant learning step, and it gave me my first taste of how larger arcade style games are built under the hood.",
     chips: ["C#", "Raylib"],
-    features: [],
+    features: ["Leaderboard", "Multiple Gamemodes", "Debug menu"],
     images: ["pictures/snake/1.png", "pictures/snake/2.png"],
   },
 ];
