@@ -36,7 +36,9 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition:
+        transform 0.4s ease,
+        opacity 0.3s ease;
     }
 
     &--empty {
@@ -49,6 +51,24 @@
         box-shadow: none;
         border-color: rgba(6, 182, 212, 0.2);
       }
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    span {
+      width: 28px;
+      height: 28px;
+      border: 2.5px solid rgba(6, 182, 212, 0.2);
+      border-top-color: rgba(6, 182, 212, 0.85);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
     }
   }
 
@@ -116,5 +136,11 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

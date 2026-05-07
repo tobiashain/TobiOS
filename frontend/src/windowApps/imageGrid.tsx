@@ -3,6 +3,7 @@ import "./imageGrid.scss";
 
 export default function ImageGrid({ images }: { images: string[] }) {
   const [selected, setSelected] = useState<string | null>(null);
+  const [loadedSet, setLoadedSet] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -11,6 +12,15 @@ export default function ImageGrid({ images }: { images: string[] }) {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
+
+  // Reset loaded state whenever the image list changes
+  useEffect(() => {
+    setLoadedSet(new Set());
+  }, [images]);
+
+  const handleLoad = (index: number) => {
+    setLoadedSet((prev) => new Set(prev).add(index));
+  };
 
   const gridItems = [...images];
   while (gridItems.length < 4) gridItems.push("");
@@ -26,7 +36,17 @@ export default function ImageGrid({ images }: { images: string[] }) {
           >
             {src && (
               <>
-                <img src={src} alt={`Preview ${index + 1}`} />
+                {!loadedSet.has(index) && (
+                  <div className="image-grid__spinner" aria-label="Loading">
+                    <span />
+                  </div>
+                )}
+                <img
+                  src={src}
+                  alt={`Preview ${index + 1}`}
+                  onLoad={() => handleLoad(index)}
+                  style={{ opacity: loadedSet.has(index) ? 1 : 0 }}
+                />
                 <div className="image-grid__overlay" />
               </>
             )}
