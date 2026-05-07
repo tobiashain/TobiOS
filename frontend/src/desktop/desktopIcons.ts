@@ -33,6 +33,13 @@ export const desktopIcons: DesktopIcons[] = [
             size: "fullscreen",
           },
           {
+            id: "portfolio",
+            type: "project",
+            label: "Portfolio Page",
+            icon: "icons/portfolio.png",
+            size: "fullscreen",
+          },
+          {
             id: "kitzEdu",
             type: "project",
             label: "Kitz-Edu 2.0",
@@ -150,8 +157,8 @@ export const desktopIcons: DesktopIcons[] = [
   {
     id: "portfolio",
     type: "iframe",
-    label: "Portfolio",
-    icon: "icons/browser.png",
+    label: "Portfolio Page",
+    icon: "icons/portfolio.png",
     link: "https://tobiashain.github.io/",
     size: "fullscreen",
   },

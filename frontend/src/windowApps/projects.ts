@@ -95,7 +95,7 @@ export const projects: Project[] = [
     ],
     images: [],
     website: "https://tobiashain.github.io/",
-    sourceCode: "https://github.com/tobiashain/",
+    sourceCode: "https://github.com/tobiashain/tobiashain.github.io",
   },
   {
     id: "kitzEdu",
@@ -181,11 +181,17 @@ export const projects: Project[] = [
   },
   {
     id: "skyfallow",
-    title: "",
-    subTitle: "",
-    context: "",
+    title: "Skyfallow",
+    subTitle:
+      "A cozy life-sim farming game about restoring biodiversity to stagnant sky islands.",
+    context:
+      "Sky Fallow is a solo project idea for a cozy farming game about restoring life to frozen sky islands. The main hook: each shrine you heal triggers a new season, changing the world and unlocking new mechanics. You befriend a Loftwing, explore rotating islands, and slowly grow a village—while realizing that restoring the world might also mean undoing an ancient sacrifice. It's early days, just exploring the concept and building the foundation.",
     chips: ["Godot", "GDScript", "C#"],
-    features: [],
+    features: [
+      "Developing a data-driven architecture using JSON files and Godot resources",
+      "Development of a React-based tool for editing and serializing game data",
+      "Implementation of a dynamic navigation system",
+    ],
     images: [
       "pictures/skyfallow/1.png",
       "pictures/skyfallow/2.png",
@@ -195,8 +201,8 @@ export const projects: Project[] = [
   },
   {
     id: "untitledPlatformer",
-    title: "",
-    subTitle: "",
+    title: "Untitled 3D Platformer",
+    subTitle: "A Titanfall 2 inspired Movement Prototype",
     context: "",
     chips: ["Unity", "C#"],
     features: [],
